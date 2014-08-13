@@ -2,9 +2,7 @@
 %\documentclass{sig-alternate}
 %\documentclass{llncs}
 %\documentclass[twocolumn]{svjour3}
-%\documentclass{IEEEtran}
 \documentclass[10pt, conference]{IEEEtran}
-%\documentclass[10pt,twocolumn,twoside]{IEEEtran}
 %\documentclass[10pt, conference, compsocconf]{IEEEtran}
 %\documentclass[11pt,draftcls,onecolumn]{IEEEtran}
 
@@ -34,6 +32,8 @@
 %\usepackage{amsthm}
 \usepackage{times}
 \usepackage{comment}
+
+\renewcommand{\paragraph}{\vspace{3pt}\noindent\textbf}
 
 \newtheorem{Prot}{Protocol}
 \newtheorem{Thm}{Theorem}
@@ -66,9 +66,11 @@
 
 %\input{abstract}       
 \input{intro}
-%\input{problem}
-%\input{overview}
-%\input{related-work}
+\input{problem}
+\input{pos}
+\input{poc}
+\input{fairness}
+\input{evaluation}
 %\input{conclusion}
 %\bibliographystyle{abbrv}
 \bibliography{IEEEabrv,vc}

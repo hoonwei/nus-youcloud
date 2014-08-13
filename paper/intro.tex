@@ -1,32 +1,3 @@
 \section{Introduction} \label{sect:intro}
 
-We consider a client (data owner) outsourcing secure computation of private data to one or multiple nodes (workers) on the cloud. 
-Upon completion of the computation, each node is financially rewarded. 
-The node is assumed to be untrusted and they may deviate from the intended computation for various reasons, e.g., to save on computational cost. 
-It is essential, therefore, for the client to be able to verify the correctness of the computation. 
-On the other hand, the computing node may not trust the client either, in the sense that the node may not be rewarded even if it has completed the computation, or even proved to the client of the correctness of the computation.
-
-There has been considerable recent work on the theoretical front on verifiable computation (VC) based on probabilistically checkable proofs (PCPs) and fully homomorphic encryption (FHE). 
-However, although these solutions are efficient in terms of asymptotic complexity, they are currently still impractical for real world applications. This is because they typically require expensive preparation and generation of proofs of correctness. 
-Moreover, a common assumption is that the preparation step is performed once and reused over multiple computations with the same representation (evaluation function).
-There exist more efficient solutions which are based on random checks on a fraction of outsourced computation, or consistency checks via replication of the same task over different compute nodes.
-However, they are typically function specific and applicable to only a narrow class of computations.
-Hence, devising a practical VC solution supporting general computation remains an open problem.
-
-Furthermore, majority of existing solutions for VC do not consider input and output privacy, which is arguably at least as important as verifiability of computation, for many applications.
-One known solution in the literature thus far is via the use of FHE to preserve the privacy of input and output data associated to a computed function.
-However, current state-of-the-art of FHE is still prohibitively expensive for practical usage.
-
-Another missing crucial piece in the domain of VC is how to ensure fairness between the client and the worker.
-While there exists solutions that rely on financial rewards to incentivize honest behavior by the worker, there is no known work which ensures a fair reward system in the VC setting.
-For example, a malicious client may fail to reward a worker who has obediently executed a requested task.
-Even though there have been some previous works which propose fair payment protocols in the outsourced computation setting, they do not consider the verifiability and privacy of the computation.
-Further, they assume the existence of a trusted third party, such as a bank, in their reward systems.
-
-The goal of this research project is to develop new solutions focusing on three essential properties of outsourced computation: verifiability, privacy, and fairness.
-That is, we explore practical alternatives which can simultaneously meet at least two of the three aforementioned properties.
-Particularly, we are interested in the following solutions:
-\begin{enumerate}
- \item Practical verifiable computation over general functions and private data.
- \item Fair verifiable computation via financial rewards without relying on a trusted third party.
-\end{enumerate}
+%\paragraph{Centralized vs.\ Decentralized Clouds.}
