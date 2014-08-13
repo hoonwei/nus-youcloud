@@ -1,14 +1,12 @@
 %\documentclass[10pt]{article}
-\documentclass{sig-alternate}
+%\documentclass{sig-alternate}
 %\documentclass{llncs}
 %\documentclass[twocolumn]{svjour3}
 %\documentclass{IEEEtran}
-% \documentclass[10pt,twocolumn,twoside]{IEEEtran}
-%\documentclass[9pt]{sigplanconf}
+\documentclass[10pt, conference]{IEEEtran}
+%\documentclass[10pt,twocolumn,twoside]{IEEEtran}
 %\documentclass[10pt, conference, compsocconf]{IEEEtran}
 %\documentclass[11pt,draftcls,onecolumn]{IEEEtran}
-%\documentclass[times, 10pt,twocolumn]{article}
-%\usepackage{latex8}
 
 \usepackage{amsmath}
 \usepackage{amssymb}
@@ -34,154 +32,47 @@
 %\usepackage{authblk}
 %\usepackage{keywords}
 %\usepackage{amsthm}
-%\usepackage{cite,citesort}
 \usepackage{times}
 \usepackage{comment}
-%\usepackage[font=small,skip=0pt]{caption}
 
-\newcommand{\etal}{\textit{et al}.\xspace}
-\newcommand{\tcodename}{{\fontsize{22}{26}{\scshape{WeShare}}}\xspace}
-\newcommand{\codename}{{{\scshape{WeShare}}}\xspace}
-\newcommand{\basiccode}{basic approach}
-\newcommand{\todo}[1]{\textbf{[[#1]]}}
-\renewcommand{\paragraph}{\vspace{3pt}\noindent\textbf}
-\newcommand{\specialcell}[2][c]{%
-  \begin{tabular}[#1]{@{}c@{}}#2\end{tabular}}
-
-\newtheorem{prot}{Protocol}
+\newtheorem{Prot}{Protocol}
 \newtheorem{Thm}{Theorem}
 \newtheorem{Def}{Definition}
 \newtheorem{Lem}{Lemma}
 \newtheorem{Pro}{Proposition}
-\newtheorem{Ex}{Example}
-\newtheorem{Rem}{Remark}
-\newtheorem{Ass}{Assumption}
-\newtheorem{Cor}[Thm]{Corollary}
-\newtheorem{Conj}[Thm]{Conjecture}
-\newtheorem{Prob}[Thm]{Problem}
-\newtheorem{Sol}[Thm]{Solution}
+% \newtheorem{Ex}{Example}
+% \newtheorem{Rem}{Remark}
+% \newtheorem{Ass}{Assumption}
+% \newtheorem{Cor}[Thm]{Corollary}
+% \newtheorem{Conj}[Thm]{Conjecture}
+% \newtheorem{Prob}[Thm]{Problem}
+% \newtheorem{Sol}[Thm]{Solution}
 
-\newcommand{\cmark}{\ding{51}}
-\newcommand{\xmark}{\ding{55}}
-
-\newcommand{\zo}{\{0,1\}}
-\newcommand{\getsr}{\leftarrow{\textsc r}}
-\newcommand{\getsc}{\xleftarrow{\textsc \$}}
-\newcommand{\N}{\mathbb{Z}_N}
-\newcommand{\B}{\mathcal{B}}
-\newcommand{\A}{\mathcal{A}}
-\newcommand{\G}{\mathbb{G}}
-
-\newcommand{\MS}{\mathsf{MS}}
-\newcommand{\OMS}{\mathsf{OMS}}
-\newcommand{\PP}{\mathsf{PP}}
-\newcommand{\PK}{\mathsf{PK}}
-\newcommand{\CT}{\mathsf{CT}}
-\newcommand{\SK}{\mathsf{SK}}
-\newcommand{\EK}{\mathsf{EK}}
-\newcommand{\EncTrap}{\mathsf{EncTrap}}
-\newcommand{\KM}{\mathsf{KM}}
 \newcommand{\Setup}{\textsf{\textup{Setup}}}
-\newcommand{\ServerSetup}{\textsf{\textup{ServerSetup}}}
-\newcommand{\SSetup}{\textsf{\textup{S.Setup}}}
-\newcommand{\OwnerSetup}{\textsf{\textup{OwnerSetup}}}
-\newcommand{\OSetup}{\textsf{\textup{O.Setup}}}
-\newcommand{\KeyGen}{\textsf{\textup{KeyGen}}}
-\newcommand{\OKeyGen}{\textsf{\textup{O.KeyGen}}}
 \newcommand{\Enc}{\textsf{\textup{Enc}}}
-\newcommand{\OEnc}{\textsf{\textup{O.Enc}}}
-\newcommand{\SUpdate}{\textsf{\textup{S.Update}}}
 \newcommand{\Dec}{\textsf{\textup{Dec}}}
-\newcommand{\UDec}{\textsf{\textup{U.Dec}}}
-\newcommand{\Update}{\textsf{\textup{Update}}}
-\newcommand{\KeyDel}{\textsf{\textup{KeyDel}}}
-\newcommand{\PriKeyGen}{\textsf{\textup{PriKeyGen}}}
-\newcommand{\DecKeyGen}{\textsf{\textup{DecKeyGen}}}
-\newcommand{\KeyUpd}{\textsf{\textup{KeyUpd}}}
-\newcommand{\KeyRev}{\textsf{\textup{KeyRev}}}
-\newcommand{\Query}{\textsf{\textup{Query}}}
-\newcommand{\QueryP}{\textsf{\textup{Query Phase 1}}}
-\newcommand{\QueryPP}{\textsf{\textup{Query Phase 2}}}
-\newcommand{\Challenge}{\textsf{\textup{Challenge}}}
-\newcommand{\Guess}{\textsf{\textup{Guess}}}
-\newcommand{\DecKeyChk}{\textsf{\textup{DecKeyChk}}}
-\newcommand{\SKGen}{\textsf{\textup{SKGen}}}
-\newcommand{\SKReGen}{\textsf{\textup{SKReGen}}}
-\newcommand{\SKEnc}{\textsf{\textup{SKEnc}}}
-\newcommand{\SKDec}{\textsf{\textup{SKDec}}}
-\newcommand{\SKUpd}{\textsf{\textup{SKUpd}}}
-\newcommand{\SKReEnc}{\textsf{\textup{SKReEnc}}}
-\newcommand{\PKGen}{\textsf{\textup{PKGen}}}
-\newcommand{\PKEnc}{\textsf{\textup{PKEnc}}}
-\newcommand{\PKDec}{\textsf{\textup{PKDec}}}
-\newcommand{\PKReGen}{\textsf{\textup{PKReGen}}}
-\newcommand{\PKReEnc}{\textsf{\textup{PKReEnc}}}
-\newcommand{\TrapGen}{\textsf{\textup{TrapGen}}}
-\newcommand{\AddUser}{\textsf{\textup{AddUser}}}
-\newcommand{\OAddUser}{\textsf{\textup{O.AddUser}}}
-\newcommand{\OutGen}{\textsf{\textup{OutGen}}}
-\newcommand{\RevUser}{\textsf{\textup{RevUser}}}
-\newcommand{\ORevUser}{\textsf{\textup{O.RevUser}}}
-\newcommand{\Init}{\textsf{\textup{Init}}}
-\newcommand{\KU}{\mathsf{KU}}
-\newcommand{\DK}{\mathsf{DK}}
-\newcommand{\RL}{\mathsf{RL}}
-\newcommand{\ST}{\mathsf{ST}}
-\newcommand{\BS}{\mathsf{BS}}
-\newcommand{\TK}{\mathsf{TK}}
-\newcommand{\PRF}{\mathsf{PRF}}
 
-% \newcommand{\squish}{
-%   \setlength{\topsep}{0pt}
-%   \setlength{\itemsep}{0ex}
-%   %\vspace{-2ex}
-%   \setlength{\parskip}{0pt}
-% }
-
-\makeatletter
-\def\@copyrightspace{\relax}
-\makeatother
-
-\bibliographystyle{plain}
+%\bibliographystyle{plain}
 %\pagestyle{plain}
-%\bibliographystyle{IEEEtran}
+\bibliographystyle{IEEEtran}
 
 %--------------------------------------------------------------------
 
 \begin{document}
 
-%\special{papersize=8.5in,11in}
-\setlength{\pdfpageheight}{\paperheight}
-\setlength{\pdfpagewidth}{\paperwidth}
+\title{Cryptographic Resource Accounting for Decentralized Clouds}
 
-\title{\tcodename: Encrypted File Sharing At Scale\titlenote{\bf This is on-going work. Please keep it confidential.}}
-
-\numberofauthors{1}
-\author{
-\alignauthor Hoon Wei Lim, Loi Luu, Shruti Tople, Prateek Saxena\\
-\affaddr{National University of Singapore}\\
-\email{\{hoonwei,loiluu,shruti90,prateeks\}@comp.nus.edu.sg}
-}
 \maketitle
 
-\input{abstract}       
+%\input{abstract}       
 \input{intro}
-\input{problem}
+%\input{problem}
 %\input{overview}
-%\input{rs-be1}
-\input{design}
-%\input{security}
-\input{implementation}
-\input{evaluation}
-%\input{extension}
-\input{related-work}
+%\input{related-work}
 %\input{conclusion}
 %\bibliographystyle{abbrv}
-\bibliography{weshare}
-\appendix
-\input{bgw}
-%\input{ube}
-%\input{correctness}
+\bibliography{IEEEabrv,vc}
+%\appendix
 %\input{sec-proof}
 
 \end{document}
