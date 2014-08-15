@@ -17,16 +17,11 @@ A peer-to-peer billing and accounting system for the cloud called BitBill was re
 
 \paragraph{Proofs of Storage.}
 Early proof-of-storage systems were proposed by Golle, Jarecki, and Mironov~\cite{GJM02}, Deswarte, Quisquater, and Sa\"{\i}dane~\cite{DQS03}, Filho and Barreto~\cite{FB06}, and Schwarz and Miller~\cite{SM06}.
+However, these proposals lacked a formal security model and analysis.
+Juels and Kaliski~\cite{JK07} and Naor and Rothblum~\cite{NR09} considered the first formal models in the context of authenticators and proofs of retrievability (POR), respectively.
+Subsequently, a series of improvements have been proposed, see for example~\cite{ABC+11} in terms of public verifiability, \cite{SW13} in terms of the compactness of proofs, and \cite{SDJ+12,CKW13,SSP13} in terms of support for dynamic data update.
+In very recent development, Miller et al.~\cite{MJS+14} show that a distributed variant of POR system can be used for mining Bitcoin (instead of using computational resources).
 
-Juels and Kaliski~\cite{JK07} and Naor and Rothblum~\cite{NR09} considered formal models for POS systems (in the context of authenticators and proofs of retrievability, respectively).
-Subsequently, a series of improvements have been proposed, see for example~\cite{}.
-
-Ateniese et al.~\cite{ABC+11} considered the first POS system with public verifiability in what they called provable data possession (PDP).
-In comparison to PORs, PDP does not guarantee retrievability of the stored file.
-
-POS systems supporting dynamic data update~\cite{}
-
-Application to mining of bitcoin~\cite{}
 
 ---------
 
@@ -63,6 +58,9 @@ One can also use code obfuscation techniques, e.g., to insert checkable state po
 
 [Trusted Hardware]
 The client may also use trusted hardware, e.g., tamper-proof co-processor, on the server to prove the correctness of the computation [SPD05]. This is somewhat conceptually similar to relying on a weak trusted third party, i.e., hardware manufacturer.
+
+Kumaresan and Bentove~\cite{KB14} recently proposed a model of incentivizing correct computation using Bitcoin. 
+
 
 \paragraph{Others.}
 
