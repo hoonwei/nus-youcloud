@@ -33,6 +33,9 @@
 \usepackage{times}
 \usepackage{comment}
 
+\let\labelindent\relax
+\usepackage{enumitem}
+
 \renewcommand{\paragraph}{\vspace{3pt}\noindent\textbf}
 
 \newtheorem{Prot}{Protocol}
@@ -49,8 +52,9 @@
 % \newtheorem{Sol}[Thm]{Solution}
 
 \newcommand{\Setup}{\textsf{\textup{Setup}}}
-\newcommand{\Enc}{\textsf{\textup{Enc}}}
-\newcommand{\Dec}{\textsf{\textup{Dec}}}
+\newcommand{\Challenge}{\textsf{\textup{Challenge}}}
+\newcommand{\Response}{\textsf{\textup{Response}}}
+\newcommand{\Verify}{\textsf{\textup{Verify}}}
 
 \bibliographystyle{plain}
 %\pagestyle{plain}
@@ -67,6 +71,7 @@
 %\input{abstract}       
 \input{intro}
 \input{problem}
+\input{design}
 \input{pos}
 \input{poc}
 \input{fairness}

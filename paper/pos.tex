@@ -20,6 +20,39 @@ Our setting has the following distinctive characteristics in comparison to those
 
 \subsection{Definition} \label{sect:pos-definition}
 
+A proof-of-storage (POS) scheme consists of the following algorithms:
+\begin{itemize}
+\item \Setup($\lambda$) $\rightarrow k$: The key generation algorithm takes as input a security parameter $\lambda$ and outputs a secret key $k$.
+
+\item \Challenge($k, m$) $\rightarrow V$: The encryption algorithm takes as input a secret key $k$ and a message $m$, and outputs the corresponding ciphertext $V$.
+
+\item \Response($k, V$) $\rightarrow m$: The decryption algorithm takes as input a ciphertext $V$ and a secret key $k$, and outputs the corresponding message $m$ if the key $k$ is correct.
+
+\item \Verify($k, V$) $\rightarrow m$: The decryption algorithm takes as input a ciphertext $V$ and a secret key $k$, and outputs the corresponding message $m$ if the key $k$ is correct.
+\end{itemize}
+
+
 \subsection{Construction} \label{sect:pos-construction}
+
+\begin{figure*}[htb]\centering
+  \begin{tabular}{|l|}
+    \hline 
+    \parbox{0.95\textwidth}{
+    \begin{itemize}[leftmargin=*]
+    \item \Setup($\lambda$) $\rightarrow k$: The key generation algorithm takes as input a security parameter $\lambda$ and outputs a secret key $k$.
+
+    \item \Challenge($k, m$) $\rightarrow V$: The encryption algorithm takes as input a secret key $k$ and a message $m$, and outputs the corresponding ciphertext $V$.
+
+    \item \Response($k, V$) $\rightarrow m$: The decryption algorithm takes as input a ciphertext $V$ and a secret key $k$, and outputs the corresponding message $m$ if the key $k$ is correct.
+
+    \item \Verify($k, V$) $\rightarrow m$: The decryption algorithm takes as input a ciphertext $V$ and a secret key $k$, and outputs the corresponding message $m$ if the key $k$ is correct.
+  \end{itemize}} \\
+  \hline
+  \end{tabular}
+  \caption{A POS scheme.}
+  \label{fig:pos}
+\end{figure*}
+   
+We use a POS scheme as specified in Figure~\ref{fig:pos}.
 
 \subsection{Security} \label{sect:security}
