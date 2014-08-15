@@ -1,0 +1,79 @@
+\section{Related Work} \label{sect:related-work}
+
+\subsection{Verifiable Resource Accounting}
+
+The notion of verifiable resource accounting was formally defined and discussed in [SM11]. Here, verifiability aims to give cloud customers assurance about two questions:
+Did I consume what I was charged?
+Should I have consumed what I was charged?
+The first question is about the accuracy of the consumption vector, e.g., CPU time, in/out network bandwidth, storage, etc. The cloud provider should not be able to charge a customer with resources it did not expend on her behalf. The second question concerns itself with the efficiency of the provider’s infrastructure, e.g., with respect to scheduling and provisioning. If the provider erroneously used 1 GB of memory for a task instead of 1 MB, it should arguably not able to pass on the cost of its inefficiency to its customer.
+
+It was envisioned in [SM11] that verifiable resource accounting can be realized in the following operating model: the provider generates a consumption report describing what resources it thinks a customer has consumed for a task. The customer then is able to check either by herself or via an independent component or party the validity of the consumption report. An instantiation of such a verification mechanism via trusted trusted computing components is proposed in [CMP+13]. Their solution leverages advances in nested virtualization to build a trusted ``observer'' for monitoring and reporting resource use, e.g., CPU and memory usage.
+
+In THEMIS [PHC+13], a trusted third party acting as a notary between the client and the cloud provider is used to verify the client’s resource consumption. It relies on digital signatures to protect the integrity and non-repudiability of billing transactions associated with resources consumed by the client. Billing statements issued by the cloud provider is compared against information obtained via a SLA monitoring module enhanced with TPM technology.
+
+A peer-to-peer billing and accounting system for the cloud called BitBill was recently proposed [CC14] to remove assumptions relying on a trusted component or third party for verification purposes. It adopts a Bitcoin-like decentralized verification mechanism. That is, the trusted third party is replaced by a global log of all the resource provision and usage of all clients and providers. Every billable event has to be signed and broadcast, analogous to that of Bitcoin. The clients and providers verify and agree on a log of events with the help of other clients from the same resource pool. To prevent malicious nodes from forging false events, a similar proof-of-work technique is used such that the rate of announcement can be controlled.
+
+\subsection{Cryptographic Audit}
+
+\paragraph{Proofs of Storage.}
+Early proof-of-storage systems were proposed by Golle, Jarecki, and Mironov~\cite{GJM02}, Deswarte, Quisquater, and Sa\"{\i}dane~\cite{DQS03}, Filho and Barreto~\cite{FB06}, and Schwarz and Miller~\cite{SM06}.
+
+Juels and Kaliski~\cite{JK07} and Naor and Rothblum~\cite{NR09} considered formal models for POS systems (in the context of authenticators and proofs of retrievability, respectively).
+Subsequently, a series of improvements have been proposed, see for example~\cite{}.
+
+Ateniese et al.~\cite{ABC+11} considered the first POS system with public verifiability in what they called provable data possession (PDP).
+In comparison to PORs, PDP does not guarantee retrievability of the stored file.
+
+POS systems supporting dynamic data update~\cite{}
+
+Application to mining of bitcoin~\cite{}
+
+---------
+
+File sharing or content distribution is commonly done over a peer-to-peer (P2P) network. However, a fundamental problem in a P2P network is the so-called ``free riders'' problem, i.e., users who use the services provided by others but do not provide any services to their peers. Motivated by this problem, [GJM02] introduced two cryptographic primitives:
+communication-enforcing signature (CES), which enforces ``proofs-of-download'' or ``pay-for-bandwidth'' in the context of P2P content distribution networks (P2P-CDNs);
+storage-enforcing commitment (SEC), which enforces ``proofs-of-storage'' or ``proofs-of-data-possession''.
+Standard signatures are not adequate as proofs-of-download, since the hash-and-sign paradigm implies that knowledge of the digest of a message is sufficient to sign the whole message. Hence, a dishonest user can save on bandwidth by exchanging only the hashes of requested content and claim credit for content she has never downloaded. CES works in such a way that the signer can only sign a message after exchanging at least as much data with the requester as would be required to send the entire message. On the other hand, SEC is based on a standard commitment scheme with the additional property that the party holding a commitment can ask the party that committed itself to a message to prove that it is still in the possession of the message.
+
+Subsequently in [FB06], a CES scheme in a stronger security model, which assumes both uploaders and downloaders are untrusted, was proposed. A SEC scheme with smaller public key size was also proposed.
+
+
+\paragraph{Proofs of Computation.}
+There exist several reasonably efficient and practical methods for verifying general secure computation on data outsourced by a client to one or multiple workers (or servers).
+
+[Replication]
+One natural and simple way for the client to verify the correctness of computation is to request multiple workers to execute its program on the same dataset. The client then takes the plurality value of the results from the workers to be the correct answer. As long as a majority of the workers are honest, the client gets the correct answer. In case there is inconsistency, the client can execute the program itself. Typically, the client and the workers sign all messages exchanged between them. This is to prevent sybil and impersonation attacks, for example.
+
+The need for an honest majority of workers can be obviated using refereed delegation of computation [CRR11]. In this computation model, the client requests for the result of a function from two (or more) workers. In case of inconsistency, the client can efficiently determine the true claim as long as there is at least one honest worker. Here, the client acts as a ``referee'' and is not required to perform the verification itself. The overhead (in the event of inconsistency or dispute) is poly-logarithmic in the size of the computation. It has been shown in [CRR11] that, for some parameters, one gets an 8x slowdown in a program for computing the determinant of a given matrix.
+
+Alternatively, the client can establish a contractual agreement with two (or more) workers in one of the following two ways [NK12]:
+If the client asks for computation results from both workers, and the results do not match, both workers pay a penalty to the client, and return the money paid for the computation as well.
+If the client asks for computation results from both workers, and the results do not match, the client performs a potentially costly audit of the computation. Each worker whose result does not match the result given by the client's audit pays a fine to the client.
+The above two agreements can be proved in a game-theoretic model that they have individually rational and incentive compatible equilibrium, assuming the workers behave honestly. It was recently shown in [CKP14] that optimal results (in terms of the client's expected costs) can still be achieved even when considering side-channel information and collusion among workers.
+
+Clearly, a limitation of the replication method is the need for at least two workers for any computational tasks. However, in return, the client is guaranteed of detecting any cheating worker.
+
+[Random Spot-checking]
+Another common approach is to insert fake, random items at random positions when forming a computational task for a worker [GM01, JK07]. The fake items need to be chosen only once for all tasks. Upon job completion, the client checks if the returned results corresponding to the fake items are as expected. The complexity of verification overhead is O(n) for n fake items, where n is chosen sufficiently large for achieving high probability of cheating detection. It was recently shown in [BZF13] that for secure (privacy-preserving) and verifiable outsourcing of Hamming distance computations, the worker's computational overhead increases only moderately, by roughly 10-24\% for different sizes of datasets after insertion of fake items. On the other hand, the client's preparation and verification overhead is roughly 8 seconds for a dataset of 8,000 items.
+
+The spot-checking approach may be cheaper than using replication, with slightly weaker (probabilistic) guarantee of cheating detection.
+
+[Obfuscation of Code]
+One can also use code obfuscation techniques, e.g., to insert checkable state points in computational tasks, such that the worker is able to produce proofs of execution comprising a sequence of state points, which can be verified by the worker [Hoh98, MWR99].
+
+[Trusted Hardware]
+The client may also use trusted hardware, e.g., tamper-proof co-processor, on the server to prove the correctness of the computation [SPD05]. This is somewhat conceptually similar to relying on a weak trusted third party, i.e., hardware manufacturer.
+
+\paragraph{Others.}
+
+- Proof-of-Erasure.
+
+- Proof-of-Space.
+There also exist primitives to enable a client to verify if the cloud has the requested amount of memory space [ABF13] and disk space [DFK+13].
+
+- Verifiable Content Distribution. It was shown in [KFM04] that verification of erasure-encoded data blocks in P2P-CDNs can be performed on-the-fly, i.e., recipients can verify the integrity of check blocks immediately as each data block is downloaded. Such a scheme can be constructed based on a homomorphic hash function.
+
+- Verifiable Data Streaming. In a data streaming protocol, the client streams a long string to the server, who stores it in a database. The stream is said to be verifiable if the server can neither change the order of the elements nor manipulate them. The content of the database is publicly verifiable such that any party in possession of some value s and a proof can check that s is indeed in the database. It is shown in [SS12] that this can be achieved using an authentication tree in which the leaves are not fixed in advanced. The user with knowledge of a trapdoor can authenticate a new element on-demand without pre- or re-computing all other leaves.
+
+
+\subsection{Fairness}
