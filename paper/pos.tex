@@ -19,13 +19,15 @@ However, the latter focuses on integrity and availability of files stored in a c
 
 - we need to use an encryption scheme which supports secure computation over encrypted data
 
-- one challenge is how to reduce the number of verification required over multiple workers (currently a prover can convince a verifier with a constant number of challenges/responses for each file). The number of queried sentinels should be small because they're for one-time use.
+- one challenge is how to reduce the number of verification required over multiple workers (currently a prover can convince a verifier with a constant number of challenges/responses for each file). 
+
+- Only one verification is sufficient for each outsource of dataset to the workers. Hence, the number of queried sentinels should be small because they're for one-time use. However, one issue is that if the worker knows in advance the positions of the challenge data blocks, then it simply downloads only those blocks. Existing POR systems do not encounter such a problem because a file is stored for a relatively extended period of time and different challenges on different positions may be issued to the worker. This forces the worker to download the entire file.
 
 \subsection{Definition} \label{sect:pos-definition}
 
 We give a definition of a proof-of-storage (POS) scheme that suits our purposes:
 \begin{itemize}
-\item \Setup($\lambda$) $\rightarrow \MK$: The setup algorithm takes as input a security parameter $\lambda$ and outputs a master key $\MK$, from which additional keys are derived, including encryption key $\EK$ and challenge key $\CK$.
+\item \Setup($\lambda$) $\rightarrow \MK$: The setup algorithm takes as input a security parameter $\lambda$ and outputs a master key $\MK$, from which additional keys are derived, including encryption key $\EK$ and challenge key $\CK$. 
 
 \item \Challenge($\CK, S$) $\rightarrow V$: The challenge algorithm takes as input a challenge key $\CK$ and a set $S$ of block indices, and outputs the corresponding set $V$ of challenge block indices.
 
@@ -34,12 +36,14 @@ We give a definition of a proof-of-storage (POS) scheme that suits our purposes:
 \item \Verify($\CK, \EK, R$) $\rightarrow \{0,1\}$: The verify algorithm takes as input the challenge key and encryption key $\EK$, and the responses $R$. It outputs `1' if verification suceeds, or `0' otherwise.
 \end{itemize}
 
+The \Setup~and \Verify~algorithms are run by the data owner for each dataset, while the \Challenge~and \Response~algorithms are run by the worker.
+In the \Setup~algorithm, $\EK$ is used to encrypt the outsourced dataset, while $\CK$ is used to generate sentinels, i.e., random blocks containing fake values, and identify the locations to which the sentinels are inserted.
 In comparison with the original definition by Juels and Kaliski~\cite{JK07}, we omit the encode and extract algorithms which are irrelevant to us.
 
 \subsection{Construction} \label{sect:pos-construction}
 
 \paragraph{Notation.}
-We let $n$ denote the number of blocks of the client's entire dataset, and $s$ denote the number of sentinels, i.e., random blocks containing fake values.
+We let $n$ denote the number of blocks of the client's entire dataset, and $s$ denote the number of sentinels.
 
 
 
@@ -48,13 +52,13 @@ We let $n$ denote the number of blocks of the client's entire dataset, and $s$ d
     \hline 
     \parbox{0.95\textwidth}{
     \begin{itemize}[leftmargin=*]
-    \item \Setup($\lambda$) $\rightarrow k$: The key generation algorithm takes as input a security parameter $\lambda$ and outputs a secret key $k$.
+    \item \Setup($\lambda$) $\rightarrow \MK$: The setup algorithm takes as input a security parameter $\lambda$ and outputs a master key $\MK$. It then sets the encryption key $\EK=H(\MK, \text{`enc'})$ and the challenge key $\CK=H(\MK, \text{`chal'})$, where $H$ is an appropriate key derivation function.
 
-    \item \Challenge($k, m$) $\rightarrow V$: The encryption algorithm takes as input a secret key $k$ and a message $m$, and outputs the corresponding ciphertext $V$.
+    \item \Challenge($\CK, S$) $\rightarrow V$: The challenge algorithm takes as input a challenge key $\CK$ and a set $S$ of block indices, and outputs the corresponding set $V$ of challenge block indices.
 
-    \item \Response($k, V$) $\rightarrow m$: The decryption algorithm takes as input a ciphertext $V$ and a secret key $k$, and outputs the corresponding message $m$ if the key $k$ is correct.
+    \item \Response($V$) $\rightarrow R$: The response algorithm takes as a set of challenge indices and outputs the corresponding set $R$ of responses.
 
-    \item \Verify($k, V$) $\rightarrow m$: The decryption algorithm takes as input a ciphertext $V$ and a secret key $k$, and outputs the corresponding message $m$ if the key $k$ is correct.
+    \item \Verify($\CK, \EK, R$) $\rightarrow \{0,1\}$: The verify algorithm takes as input the challenge key and encryption key $\EK$, and the responses $R$. It outputs `1' if verification suceeds, or `0' otherwise.
   \end{itemize}} \\
   \hline
   \end{tabular}
