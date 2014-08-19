@@ -25,25 +25,25 @@ However, the latter focuses on integrity and availability of files stored in a c
 
 \subsection{Definition} \label{sect:pos-definition}
 
+Let $F := (F_1,F_2,\dotsc,F_n)$ denote a dataset consisting $n$ sequential segments.
 We give a definition of a proof-of-storage (POS) scheme that suits our purposes:
 \begin{itemize}
-\item \Setup($\lambda$) $\rightarrow \MK$: The setup algorithm takes as input a security parameter $\lambda$ and outputs a master key $\MK$, from which additional keys are derived, including encryption key $\EK$ and challenge key $\CK$. 
+% \item \Setup($\lambda,F$) $\rightarrow (\MK,\hat{F},\digest)$: The setup algorithm takes as input a security parameter $\lambda$ and outputs a master key $\MK$, from which additional keys are derived, including encryption key $\EK$ and challenge key $\CK$. The algorithm then computes the encryption of $F$ under key $\EK$, denoted by $\hat{F}$, and a Merkle tree whose leaves are segments of $\hat{F}$ and whose root is $\digest$.
 
-\item \Challenge($\CK, S$) $\rightarrow V$: The challenge algorithm takes as input a challenge key $\CK$ and a set $S$ of block indices, and outputs the corresponding set $V$ of challenge block indices.
+\item \Setup($F$) $\rightarrow (\digest)$: The setup algorithm takes as input a dataset $F$ (which may be encrypted). It computes a Merkle tree whose leaves are segments of $F$ and whose root is $\digest$.
 
-\item \Response($V$) $\rightarrow R$: The response algorithm takes as a set of challenge indices and outputs the corresponding set $R$ of responses.
+\item \Prove($\CK, S$) $\rightarrow V$: The challenge algorithm takes as input a challenge key $\CK$ and a set $S$ of block indices, and outputs the corresponding set $V$ of challenge block indices.
 
 \item \Verify($\CK, \EK, R$) $\rightarrow \{0,1\}$: The verify algorithm takes as input the challenge key and encryption key $\EK$, and the responses $R$. It outputs `1' if verification suceeds, or `0' otherwise.
 \end{itemize}
 
-The \Setup~and \Verify~algorithms are run by the data owner for each dataset, while the \Challenge~and \Response~algorithms are run by the worker.
-In the \Setup~algorithm, $\EK$ is used to encrypt the outsourced dataset, while $\CK$ is used to generate sentinels, i.e., random blocks containing fake values, and identify the locations to which the sentinels are inserted.
+The \Setup~and \Verify~algorithms are run by the data owner for each dataset, while the \Prove~algorithm is run by the worker.
 In comparison with the original definition by Juels and Kaliski~\cite{JK07}, we omit the encode and extract algorithms which are irrelevant to us.
 
 \subsection{Construction} \label{sect:pos-construction}
 
-\paragraph{Notation.}
-We let $n$ denote the number of blocks of the client's entire dataset, and $s$ denote the number of sentinels.
+%\paragraph{Notation.}
+%We let $n$ denote the number of blocks of the client's entire dataset, and $s$ denote the number of sentinels.
 
 
 
@@ -54,9 +54,7 @@ We let $n$ denote the number of blocks of the client's entire dataset, and $s$ d
     \begin{itemize}[leftmargin=*]
     \item \Setup($\lambda$) $\rightarrow \MK$: The setup algorithm takes as input a security parameter $\lambda$ and outputs a master key $\MK$. It then sets the encryption key $\EK=H(\MK, \text{`enc'})$ and the challenge key $\CK=H(\MK, \text{`chal'})$, where $H$ is an appropriate key derivation function.
 
-    \item \Challenge($\CK, S$) $\rightarrow V$: The challenge algorithm takes as input a challenge key $\CK$ and a set $S$ of block indices, and outputs the corresponding set $V$ of challenge block indices.
-
-    \item \Response($V$) $\rightarrow R$: The response algorithm takes as a set of challenge indices and outputs the corresponding set $R$ of responses.
+    \item \Prove($\CK, S$) $\rightarrow V$: The challenge algorithm takes as input a challenge key $\CK$ and a set $S$ of block indices, and outputs the corresponding set $V$ of challenge block indices.
 
     \item \Verify($\CK, \EK, R$) $\rightarrow \{0,1\}$: The verify algorithm takes as input the challenge key and encryption key $\EK$, and the responses $R$. It outputs `1' if verification suceeds, or `0' otherwise.
   \end{itemize}} \\
