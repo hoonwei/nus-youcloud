@@ -16,6 +16,13 @@ This is illustrated in Figure~\ref{fig:model}.
   \label{fig:model}
 \end{figure}
 
+Our decentralized cloud setting has the following distinctive characteristics in comparison to centralized cloud settings previously considered:
+\begin{itemize}
+ \item A data owner distributes her datasets and delegate computational tasks to a decentralized and heterogeneous computing environment.
+ \item There exists an intermediate party, i.e., application/data server, which facilitates delegation and distribution of datasets and computational tasks.
+ \item The owner can dynamically update her datasets stored on the server, but the data delegated to workers is assumed to be static and will be deleted upon the completion of the assigned tasks.
+\end{itemize}
+
 \paragraph{Threat Model.}
 However, each worker is assumed to be untrusted and they may deviate from the intended computation for various reasons, e.g., to save on computational cost. 
 %It is essential, therefore, for the client to be able to verify the correctness of the computation. 
@@ -24,4 +31,17 @@ On the other hand, the worker may not trust the data owner either, in the sense 
 
 \subsection{Challenges} \label{sect:challenges}
 
+\paragraph{Proofs of Data Fetch.}
+- one challenge is how to reduce the number of verification required over multiple workers (currently a prover can convince a verifier with a constant number of challenges/responses for each file). 
+
+- Only one verification is sufficient for each outsource of dataset to the workers. Hence, the number of queried sentinels should be small because they're for one-time use. However, one issue is that if the worker knows in advance the positions of the challenge data blocks, then it simply downloads only those blocks. Existing POR systems do not encounter such a problem because a file is stored for a relatively extended period of time and different challenges on different positions may be issued to the worker. This forces the worker to download the entire file.
+
+\paragraph{Proofs of Computation.}
+
+
+\paragraph{Fairness.}
+
+
+
 \subsection{Solution Overview} \label{sect:solution}
+

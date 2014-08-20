@@ -36,8 +36,6 @@
 \let\labelindent\relax
 \usepackage{enumitem}
 
-\renewcommand{\paragraph}{\vspace{3pt}\noindent\textbf}
-
 \newtheorem{Prot}{Protocol}
 \newtheorem{Thm}{Theorem}
 \newtheorem{Def}{Definition}
@@ -51,6 +49,12 @@
 % \newtheorem{Prob}[Thm]{Problem}
 % \newtheorem{Sol}[Thm]{Solution}
 
+%---Formating---
+\renewcommand{\paragraph}{\vspace{3pt}\noindent\textbf}
+\newcommand{\tcodename}{{\fontsize{23}{28}{\scshape{YouCloud}}}\xspace}
+\newcommand{\codename}{{{\scshape{YouCloud}}}\xspace}
+
+%---Algorithms---
 \newcommand{\Setup}{\textsf{\textup{Setup}}}
 \newcommand{\Prove}{\textsf{\textup{Prove}}}
 \newcommand{\Verify}{\textsf{\textup{Verify}}}
@@ -67,7 +71,7 @@
 
 \begin{document}
 
-\title{Cryptographic Resource Accounting for Decentralized Clouds}
+\title{\tcodename: Decentralized Clouds with Cryptographic Resource Accounting}
 
 \maketitle
 
@@ -75,7 +79,7 @@
 \input{intro}
 \input{problem}
 \input{design}
-\input{pos}
+\input{pdf}
 \input{poc}
 \input{fairness}
 \input{evaluation}
