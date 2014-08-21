@@ -1,3 +1,16 @@
 \section{Proofs of Computation} \label{sect:poc}
 
 - can we combine proofs of computational effort and random spot checks?
+
+
+\subsection{Definitions} \label{sect:poc-definition}
+
+\begin{itemize}
+\item \Setup($D$) $\rightarrow (\tau,\tau_1,\dotsc,\tau_n)$: The algorithm takes as input a dataset $D$, and outputs a digest $\tau_i$ for each data blocks $D_i$ and a digest $\tau$ for the entire dataset $D$.
+
+\item \Prove($D_i$) $\rightarrow \tau_i$: The algorithm takes as input a data segment $D_i$ and outputs the corresponding digest $\tau)i$.
+
+\item \Aggregate($\tau_1,\dotsc,\tau_n$) $\rightarrow \tau'$: The algorithm takes as input the digests $\tau_i$ corresponding to their respective data segments $D_i$ and outputs an aggregate digest $\tau'$.
+
+\item \Verify($\tau, \tau'$) $\rightarrow \{0,1\}$: The algorithm takes as input the original digest $\tau$ for $D$ and an aggregate digest $\tau'$. It outputs `1' if $\tau=\tau'$, or `0' otherwise.
+\end{itemize}

@@ -4,7 +4,7 @@
 
 We consider a data owner (client) storing her data in encrypted form on a server, possibly residing on a centralized cloud or a peer-to-peer (P2P) network.
 The owner may run computational intensive tasks over the encrypted data.
-Instead of performing on the server itself, the owner delegates the computational tasks to multiple workers residing on a decentralized cloud. 
+Instead of performing tasks on the server itself, the owner delegates them to multiple workers residing on a decentralized cloud. 
 Each worker fetches its portion of the required dataset from the server, performs the requested computation, and returns the results to the server.
 The owner can then, at her discretion, download and verify the results.
 The worker is financially rewarded if the verification of the returned results passes through.
@@ -22,6 +22,9 @@ Our decentralized cloud setting has the following distinctive characteristics in
  \item There exists an intermediate party, i.e., application/data server, which facilitates delegation and distribution of datasets and computational tasks.
  \item The owner can dynamically update her datasets stored on the server, but the data delegated to workers is assumed to be static and will be deleted upon the completion of the assigned tasks.
 \end{itemize}
+
+We note that the introduction of a centralized entity to facilitate distribution of tasks is necessary in our decentralized infrastructure.
+In fact, BOINC~\cite{And04} also relies on centralized data and application servers to distribute tasks within a volunteer computing network, and BitTorrent~\cite{Coh03} uses a trusted, centralized tracker to coordinate activities within a P2P network.
 
 \paragraph{Threat Model.}
 However, each worker is assumed to be untrusted and they may deviate from the intended computation for various reasons, e.g., to save on computational cost. 

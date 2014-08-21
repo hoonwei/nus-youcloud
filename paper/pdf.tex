@@ -9,22 +9,23 @@ However, HAIL focuses on the integrity and availability of files stored in a col
 These are realized using file authentication techniques and error-correcting code in an interactive and synchronous manner among the distributed servers.
 
 
-\subsection{Definition} \label{sect:pos-definition}
+\subsection{Definitions} \label{sect:pdf-definition}
 
 Let $D := (D_1,D_2,\dotsc,D_n)$ denote a dataset consisting $n$ sequential segments, where each $D_i$ comprises $\ell$ encrypted data blocks.
 We give a definition of a proof-of-data-fetch (PDF) scheme that suits our purposes:
 \begin{itemize}
-\item \Setup($D$) $\rightarrow (\tau,\tau_1,\dotsc,\tau_n)$: The setup algorithm takes as input a dataset $D$, and outputs a digest $\tau_i$ for each data blocks $D_i$ and a digest $\tau$ for the entire dataset $D$.
+\item \Setup($D$) $\rightarrow (\tau,\tau_1,\dotsc,\tau_n)$: The algorithm takes as input a dataset $D$, and outputs a digest $\tau_i$ for each data blocks $D_i$ and a digest $\tau$ for the entire dataset $D$.
 
-\item \Prove($D_i$) $\rightarrow \tau_i$: The prove algorithm takes as input a data segment $D_i$ and outputs the corresponding digest $\tau)i$.
+\item \Prove($D_i$) $\rightarrow \tau_i$: The algorithm takes as input a data segment $D_i$ and outputs the corresponding digest $\tau)i$.
 
-\item \Verify($\tau, \tau_1,\dotsc,\tau_n$) $\rightarrow \{0,1\}$: The verify algorithm takes as input the digests corresponding to the entire dataset and each data segment. It outputs `1' if verification suceeds, or `0' otherwise.
+\item \Aggregate($\tau_1,\dotsc,\tau_n$) $\rightarrow \tau'$: The algorithm takes as input the digests $\tau_i$ corresponding to their respective data segments $D_i$ and outputs an aggregate digest $\tau'$.
+
+\item \Verify($\tau, \tau'$) $\rightarrow \{0,1\}$: The algorithm takes as input the original digest $\tau$ for $D$ and an aggregate digest $\tau'$. It outputs `1' if $\tau=\tau'$, or `0' otherwise.
 \end{itemize}
 
-% The \Setup~and \Verify~algorithms are run by the data owner for each dataset, while the \Prove~algorithm is run by the worker.
-% In comparison with the original definition by Juels and Kaliski~\cite{JK07}, we omit the encode and extract algorithms which are irrelevant to us.
+A PDS scheme is said to be secure if...
 
-\subsection{Construction} \label{sect:pos-construction}
+\subsection{Basic Scheme} \label{sect:pdf-basic}
 
 %\paragraph{Notation.}
 %We let $n$ denote the number of blocks of the client's entire dataset, and $s$ denote the number of sentinels.
@@ -44,10 +45,16 @@ We give a definition of a proof-of-data-fetch (PDF) scheme that suits our purpos
   \end{itemize}} \\
   \hline
   \end{tabular}
-  \caption{A POS scheme.}
-  \label{fig:pos}
+  \caption{A basic proof-of-data-fetch (PDF) scheme.}
+  \label{fig:basic-pdf}
 \end{figure*}
    
-We use a POS scheme as specified in Figure~\ref{fig:pos}.
+We use a PDF scheme as specified in Figure~\ref{fig:basic-pdf}.
 
-\subsection{Security} \label{sect:security}
+\begin{Lem}
+The basic PDF scheme is secure... 
+\end{Lem}
+
+\subsection{General Approach} \label{sect:pdf-general}
+
+Our basic PDF scheme has two limitations: (i) difficult to update Merkle trees when the associated dataset is updated; (ii) security is guaranteed only if all distributed data segments are different from each other.
