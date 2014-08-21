@@ -9,6 +9,7 @@ Each worker fetches its portion of the required dataset from the server, perform
 The owner can then, at her discretion, download and verify the results.
 The worker is financially rewarded if the verification of the returned results passes through.
 This is illustrated in Figure~\ref{fig:model}.
+In this work, we ask the question of {\em how can the owner securely and efficiently verify the resource consumption of each worker without relying on a trusted third party or any trusted hardware component}?
 
 \begin{figure}[h!]\centering
   \includegraphics[scale=0.30]{model.pdf}
@@ -20,7 +21,8 @@ Our decentralized cloud setting has the following distinctive characteristics in
 \begin{itemize}
  \item A data owner distributes her datasets and delegate computational tasks to a decentralized and heterogeneous computing environment.
  \item There exists an intermediate party, i.e., application/data server, which facilitates delegation and distribution of datasets and computational tasks.
- \item The owner can dynamically update her datasets stored on the server, but the data delegated to workers is assumed to be static and will be deleted upon the completion of the assigned tasks.
+ \item The owner can dynamically update her datasets stored on the server, but the data delegated to workers is assumed to be static.
+ \item The owner's dataset is stored on the server over an extended period of time, but any data distributed to the worker is only temporarily stored and deleted upon the completion of the assigned task.
 \end{itemize}
 
 We note that the introduction of a centralized entity to facilitate distribution of tasks is necessary in our decentralized infrastructure.
@@ -35,9 +37,11 @@ On the other hand, the worker may not trust the data owner either, in the sense 
 \subsection{Challenges} \label{sect:challenges}
 
 \paragraph{Proofs of Data Fetch.}
-- one challenge is how to reduce the number of verification required over multiple workers (currently a prover can convince a verifier with a constant number of challenges/responses for each file). 
+- One challenge is how to reduce the number of verifications required over multiple workers (currently a prover can convince a verifier with a constant number of challenges/responses for each file). 
 
-- Only one verification is sufficient for each outsource of dataset to the workers. Hence, the number of queried sentinels should be small because they're for one-time use. However, one issue is that if the worker knows in advance the positions of the challenge data blocks, then it simply downloads only those blocks. Existing POR systems do not encounter such a problem because a file is stored for a relatively extended period of time and different challenges on different positions may be issued to the worker. This forces the worker to download the entire file.
+- Another issue is that if the worker knows in advance the positions of the challenge data blocks, then it simply downloads only those blocks. Existing POR systems do not encounter such a problem because a file is stored for a relatively extended period of time and different challenges on different positions may be issued to the worker. This forces the worker to download the entire file.
+
+- During update of elements of the dataset, how can the owner update her local state information (used for verifying resource consumption) in an efficient manner?
 
 \paragraph{Proofs of Computation.}
 

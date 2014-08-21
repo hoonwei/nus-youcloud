@@ -1,36 +1,34 @@
 \section{Proofs of Data Fetch} \label{sect:pdf}
 
 Our concept of proofs of data fetch (PDF) is closely related to that of proofs of storage.
-We are interested in using a PDF as a means to convince a verifier that indeed data has been transferred between two parties, e.g., a worker has successfully downloaded a dataset from the data server.
-Note that in a PDF system, we are not concerned about the (possibly mid- to long-term) storage, i.e., availability, and the retrievability of dataset.
+We are interested in using a PDF as a means to convince a verifier (data owner) that, indeed, data has been transferred between two parties (worker and data server).
+Note that in a PDF system, we are not concerned about the (possibly mid- to long-term) storage on the worker-side, i.e., data is retrieved from the server and deleted upon completion of a requested computational task.
 Hence, we do not need a full-fledged proof-of-storage or proof-of-retrievability scheme (e.g., \cite{JK07,AKK09,SW13}) for our purposes.
-Our PDF scheme bears some similarity with HAIL~\cite{BJO09b}, a distributed POR system, in the sense that files are divided in segments and stored across multiple entities.
-However, HAIL focuses on the integrity and availability of files stored in a collection of distributed servers.
-These are realized using file authentication techniques and error-correcting code in an interactive and synchronous manner among the distributed servers.
 
 
 \subsection{Definitions} \label{sect:pdf-definition}
 
-Let $D := (D_1,D_2,\dotsc,D_n)$ denote a dataset consisting $n$ sequential segments, where each $D_i$ comprises $\ell$ encrypted data blocks.
+Let $D := (D_1,D_2,\dotsc,D_n)$ denote a dataset consisting $n$ sequential data segments, where each $D_i$ comprises $\ell$ encrypted data blocks $(b^i_1,b^i_2,\dotsc,b^i_{\ell})$ of similar block size $|b|$.
 We give a definition of a proof-of-data-fetch (PDF) scheme that suits our purposes:
 \begin{itemize}
 \item \Setup($D$) $\rightarrow (\tau,\tau_1,\dotsc,\tau_n)$: The algorithm takes as input a dataset $D$, and outputs a digest $\tau_i$ for each data blocks $D_i$ and a digest $\tau$ for the entire dataset $D$.
 
-\item \Prove($D_i$) $\rightarrow \tau_i$: The algorithm takes as input a data segment $D_i$ and outputs the corresponding digest $\tau)i$.
+\item \Update($b^i_j$) $\rightarrow (\tau',\tau'_i)$: The algorithm takes as input one or more newly added or deleted data blocks $b^i_j$ in $D_i$, and outputs an updated digest $\tau'_i$ for $D_i$ and updated digest $\tau'$ for the entire dataset $D$.
 
-\item \Aggregate($\tau_1,\dotsc,\tau_n$) $\rightarrow \tau'$: The algorithm takes as input the digests $\tau_i$ corresponding to their respective data segments $D_i$ and outputs an aggregate digest $\tau'$.
+\item \Prove($D_i$) $\rightarrow \tau_i$: The algorithm takes as input a data segment $D_i$ and outputs the corresponding digest $\tau_i$.
 
-\item \Verify($\tau, \tau'$) $\rightarrow \{0,1\}$: The algorithm takes as input the original digest $\tau$ for $D$ and an aggregate digest $\tau'$. It outputs `1' if $\tau=\tau'$, or `0' otherwise.
+\item \Aggregate($\tau_1,\dotsc,\tau_n$) $\rightarrow \tilde{\tau}$: The algorithm takes as input the digests $\tau_i$ corresponding to their respective data segments $D_i$ and outputs an aggregate digest $\tilde{\tau}$.
+
+\item \Verify($\tau, \tilde{\tau}$) $\rightarrow \{0,1\}$: The algorithm takes as input the original digest $\tau$ for $D$ and an aggregate digest $\tilde{\tau}$. It outputs `1' if $\tau=\tilde{\tau}$, or `0' otherwise.
 \end{itemize}
+
+The \Setup, \Update, and \Verify~algorithms are run by the data owner; the \Prove~algorithm is run by the worker; and the \Aggregate~algorithm is run by the server.
+
+Intuitively, the worker must have transferred the required amount of data in order to generate a valid PDF.
 
 A PDS scheme is said to be secure if...
 
 \subsection{Basic Scheme} \label{sect:pdf-basic}
-
-%\paragraph{Notation.}
-%We let $n$ denote the number of blocks of the client's entire dataset, and $s$ denote the number of sentinels.
-
-
 
 \begin{figure*}[htb]\centering
   \begin{tabular}{|l|}
@@ -39,9 +37,13 @@ A PDS scheme is said to be secure if...
     \begin{itemize}[leftmargin=*]
     \item \Setup($D$) $\rightarrow (\tau,\tau_1,\dotsc,\tau_n)$: The setup algorithm takes as input a dataset $D$. It first computes, for $1 \le i \le n$, the root $\tau_i$ of a Merkle tree whose leaves are the data blocks of $D_i$. It then computes the root $\tau$ of a Merkle tree whose leaves are the data segments $D_1,\dotsc,D_n$.
 
-    \item \Prove($\CK, S$) $\rightarrow V$: The challenge algorithm takes as input a challenge key $\CK$ and a set $S$ of block indices, and outputs the corresponding set $V$ of challenge block indices.
+    \item \Update($b^i_j$) $\rightarrow (\tau',\tau'_i)$: The algorithm takes as input one or more newly added or deleted data blocks $b^i_j$ in $D_i$, and outputs an updated digest $\tau'_i$ for $D_i$ and updated digest $\tau'$ for the entire dataset $D$.
 
-    \item \Verify($\CK, \EK, R$) $\rightarrow \{0,1\}$: The verify algorithm takes as input the challenge key and encryption key $\EK$, and the responses $R$. It outputs `1' if verification suceeds, or `0' otherwise.
+  \item \Prove($D_i$) $\rightarrow \tau_i$: The algorithm takes as input a data segment $D_i$ and outputs the corresponding digest $\tau_i$.
+
+  \item \Aggregate($\tau_1,\dotsc,\tau_n$) $\rightarrow \tilde{\tau}$: The algorithm takes as input the digests $\tau_i$ corresponding to their respective data segments $D_i$ and outputs an aggregate digest $\tilde{\tau}$.
+
+  \item \Verify($\tau, \tilde{\tau}$) $\rightarrow \{0,1\}$: The algorithm takes as input the original digest $\tau$ for $D$ and an aggregate digest $\tilde{\tau}$. It outputs `1' if $\tau=\tilde{\tau}$, or `0' otherwise.
   \end{itemize}} \\
   \hline
   \end{tabular}
