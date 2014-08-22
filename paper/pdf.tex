@@ -60,3 +60,8 @@ The basic PDF scheme is secure...
 \subsection{General Approach} \label{sect:pdf-general}
 
 Our basic PDF scheme has two limitations: (i) difficult to update Merkle trees when the associated dataset is updated; (ii) security is guaranteed only if all distributed data segments are different from each other.
+
+- we can use homomorphic MAC (supporting aggregation), however, the owner must compute the aggregate MAC for each data segment -- costly
+
+- we can use Bloom filters, such that the owner spot check only a small fractions of the data elements. However, two issues remain: can we aggregate BFs? how to remove elements from BFs?
+
