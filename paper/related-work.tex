@@ -18,13 +18,15 @@ A peer-to-peer billing and accounting system for the cloud called BitBill was re
 \paragraph{Proofs of Storage.}
 Early proof-of-storage systems were proposed by Golle, Jarecki, and Mironov~\cite{GJM02}, Deswarte, Quisquater, and Sa\"{\i}dane~\cite{DQS03}, Filho and Barreto~\cite{FB06}, and Schwarz and Miller~\cite{SM06}.
 However, these proposals lacked a formal security model and analysis.
-Juels and Kaliski~\cite{JK07} and Naor and Rothblum~\cite{NR09} considered the first formal models in the context of authenticators and proofs of retrievability (POR), respectively.
-Subsequently, a series of improvements have been proposed, for example, in terms of public verifiability~\cite{AKK09,ABC+11}, compactness of proofs~\cite{SW13}, support for dynamic data update~\cite{SDJ+12,CKW13,SSP13}, and security against a stronger adversarial model~\cite{BJO09a}.
-In very recent development, Miller et al.~\cite{MJS+14} show that a distributed variant of POR system can be used for mining Bitcoin (instead of using computational resources).
+Juels and Kaliski~\cite{JK07}, Naor and Rothblum~\cite{NR09} considered the first formal models in the context of authenticators and proofs of retrievability (POR), respectively.
+Subsequently, a series of improvements have been proposed, for example, in terms of public verifiability~\cite{AKK09,ABC+11}, compactness of proofs~\cite{SW13}, support for dynamic data update~\cite{EKP+09,SDJ+12,CKW13,SSP13}, replication~\cite{CKB+08}, and security against a fully Byzantine adversarial model~\cite{BJO09a}.
 
-Our PDF scheme bears some similarity with HAIL~\cite{BJO09b}, another distributed POR system, in the sense that files are divided in segments and stored across multiple entities.
-However, HAIL focuses on the integrity and availability of files stored in a collection of distributed servers.
-These are realized using file authentication techniques and error-correcting code in an interactive and synchronous manner among the distributed servers.
+There also exist proposals distributed proof-of-storage systems.
+Bowers, Juels, and A. Oprea~\cite{BJO09b} proposed HAIL, in which files are divided in segments and stored across a collection of distributed servers.
+They showed that the integrity and availability of files can be realized using file authentication techniques and integrity-protected error-correcting code in an interactive and synchronous manner among the distributed servers.
+Zhu et al.~\cite{ZHA+12} considered a distributed proof-of-data-possession (PDP) system in a multi-cloud model, which requires a trusted third party to store public parameters used for proof verification.
+On the other hand, Etemad and K{\"u}p\c{c}{\"u}~\cite{EK13} proposed a distributed and replicated dynamic PDP system which is transparent from the user's viewpoint (in terms of the internal architecture of the cloud provider).
+In very recent development, Miller et al.~\cite{MJS+14} show that a distributed POR system can be adapted for mining Bitcoin (instead of using computational resources).
 
 
 ---------
