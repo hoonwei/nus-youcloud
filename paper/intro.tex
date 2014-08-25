@@ -4,6 +4,26 @@
 
 - Centralized clouds owned by only few organizations imply the possibility of single points of failure.
 
-- decentralized or cooperative clouds are attractive alternatives: multi-clouds, volunteer computing
+- decentralized clouds are attractive alternatives: multi-clouds, volunteer computing
 
 - For example: BOINC~\cite{BOINC}, Cloud@Home~\cite{DP12}, MultCloud~\cite{MultCloud}, Symform~\cite{Symform}, Storj~\cite{Storj}, Syndicate~\cite{Syndicate}
+
+- a decentralized cloud is beyond a multi-cloud or hybrid-cloud in terms of scale
+
+The concept of verifiable resource accounting (VRA) was first formalized by Sekar and Maniatis~\cite{SM11}.
+
+- resource usage and billing are top concerns for the majority of IT managers and CIOs 
+
+- They highlighted that trusted computing can be used to address resource accounting guarantees. However, this cannot be achieved using existing deployed mechanisms. Ideally, a new resource accounting OS or hypervisor should be developed. However, this is not viable given the existing legacy of deployed infrastructure. So, as shown in their subsequent work~\cite{CMP+13}, the only option is to build another layer of lightweight hypervisor on top of existing legacy hypervisors. Nevertheless, there are other challenges remain. For example, such a software-based solution currently can only monitor CPU usage and memory utilization. Also, there's a privacy issue with respect to the cloud provider. It's not clear how the provider's privacy can be protected in terms of their logic and policy of resource allocation (which is usually proprietary).
+
+- the authors acknowledged that what can be done with current TPM technology is only a first step towards an overaching vision. So it may take years to see any deployable and satisfactory TPM-based solution for VRA.
+
+- cryptographic VRA solution can be an appealing immediate and cheaper alternative. In fact, an important point to note is that a cryptographic solution can achieve properties not achievable via TPM, and vice versa. For example, we can provide proofs-of-data-fetch, proofs-of-storage, proofs-of-retrievability, proofs-of-computation, etc., while a TPM-based solution can measure CPU usage and memory utilization. So both approaches can co-exist and complement each other.
+
+
+\paragraph{Goal \& Approach.}
+
+
+\paragraph{Results.}
+
+
