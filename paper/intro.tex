@@ -1,8 +1,10 @@
 \section{Introduction} \label{sect:intro}
 
-- centralized clouds are easier to manage, however, they are costly to maintain (e.g., high energy cost) and may not scale as well (in terms of the elasticity of demand from cloud subscribers).
+The concept of cloud computing~\cite{AFG+10}, in large part, is already a reality today.
+Computing power is typically centrally generated in large data centers owned and monopolized by only a few large organizations, e.g., Amazon, Google, Microsoft, and Rackspace, and made available to end-users via a distributed network.
+Centralized clouds may be easier to manage.
+However, they are costly to maintain; moreover, they may be difficult to keep pace with today's and future data growth, and may be bandwidth bottlenecks for applications requiring substantial scalability and elasticity~\cite{symform-slide,techrepublic}.
 
-- Centralized clouds owned by only few organizations imply the possibility of single points of failure.
 
 - decentralized clouds are attractive alternatives: multi-clouds, volunteer computing
 
@@ -18,6 +20,7 @@ The concept of verifiable resource accounting (VRA) was first formalized by Seka
 
 - the authors acknowledged that what can be done with current TPM technology is only a first step towards an overaching vision. So it may take years to see any deployable and satisfactory TPM-based solution for VRA.
 
+- moreover, it seems infeasible to assume or require each distributed computer in a decentralized cloud model to be equipped with TPM
 
 \paragraph{Goal \& Approach.}
 - cryptographic VRA solution can be an appealing immediate and cheaper alternative. In fact, an important point to note is that a cryptographic solution can achieve properties not achievable via TPM, and vice versa. For example, we can provide proofs-of-data-fetch, proofs-of-storage, proofs-of-retrievability, proofs-of-computation, etc., while a TPM-based solution can measure CPU usage and memory utilization. So both approaches can co-exist and complement each other.
