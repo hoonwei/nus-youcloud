@@ -6,6 +6,8 @@ Note that in a PDF system, we are not concerned about the (possibly mid- to long
 Hence, we do not need a full-fledged proof-of-storage or proof-of-retrievability scheme (e.g., \cite{JK07,AKK09,SW13}) for our purposes.
 
 
+[What's our scheme different from~\cite{ADM+08}?]
+
 \subsection{Definitions} \label{sect:pdf-definition}
 
 Let $D := (D_1,D_2,\dotsc,D_n)$ denote a dataset consisting $n$ sequential data segments, where each $D_i$ comprises $\ell$ encrypted data blocks $(b^i_1,b^i_2,\dotsc,b^i_{\ell})$ of similar block size $|b|$.
@@ -59,7 +61,9 @@ The basic PDF scheme is secure...
 
 \subsection{General Approach} \label{sect:pdf-general}
 
-Our basic PDF scheme has two limitations: (i) difficult to update Merkle trees when the associated dataset is updated; (ii) security is guaranteed only if all distributed data segments are different from each other.
+Our basic PDF scheme has two limitations: (i) can the worker avoid computing hashes over all data blocks in a data segment? (ii) security is guaranteed only if all distributed data segments are different from each other; (iii) difficult to update Merkle trees when the associated dataset is updated.
+
+(The second problem can be addressed by including a nonce in each data segment when computing the corresponding hash value.)
 
 - we can use homomorphic MAC (supporting aggregation), however, the owner must compute the aggregate MAC for each data segment -- costly
 
