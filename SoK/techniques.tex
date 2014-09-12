@@ -1,0 +1,71 @@
+\section{Proofs of Data Fetch} \label{sect:pdf}
+
+Our concept of proofs of data fetch (PDF) is closely related to that of proofs of storage.
+We are interested in using a PDF as a means to convince a verifier (data owner) that, indeed, data has been transferred between two parties (worker and data server).
+Note that in a PDF system, we are not concerned about the (possibly mid- to long-term) storage on the worker-side, i.e., data is retrieved from the server and deleted upon completion of a requested computational task.
+Hence, we do not need a full-fledged proof-of-storage or proof-of-retrievability scheme (e.g., \cite{JK07,AKK09,SW13}) for our purposes.
+
+
+[Why's our scheme different from~\cite{ADM+08}? The latter performs random spot-checking using symmetric-key primitives]
+
+\subsection{Definitions} \label{sect:pdf-definition}
+
+Let $D := (D_1,D_2,\dotsc,D_n)$ denote a dataset consisting $n$ sequential data segments, where each $D_i$ comprises $\ell$ encrypted data blocks $(b^i_1,b^i_2,\dotsc,b^i_{\ell})$ of similar block size $|b|$.
+We give a definition of a proof-of-data-fetch (PDF) scheme that suits our purposes:
+\begin{itemize}
+\item \Setup($D$) $\rightarrow (\tau,\tau_1,\dotsc,\tau_n)$: The algorithm takes as input a dataset $D$, and outputs a digest $\tau_i$ for each data blocks $D_i$ and a digest $\tau$ for the entire dataset $D$.
+
+\item \Update($b^i_j$) $\rightarrow (\tau',\tau'_i)$: The algorithm takes as input one or more newly added or deleted data blocks $b^i_j$ in $D_i$, and outputs an updated digest $\tau'_i$ for $D_i$ and updated digest $\tau'$ for the entire dataset $D$.
+
+\item \Prove($D_i$) $\rightarrow \tau_i$: The algorithm takes as input a data segment $D_i$ and outputs the corresponding digest $\tau_i$.
+
+\item \Aggregate($\tau_1,\dotsc,\tau_n$) $\rightarrow \tilde{\tau}$: The algorithm takes as input the digests $\tau_i$ corresponding to their respective data segments $D_i$ and outputs an aggregate digest $\tilde{\tau}$.
+
+\item \Verify($\tau, \tilde{\tau}$) $\rightarrow \{0,1\}$: The algorithm takes as input the original digest $\tau$ for $D$ and an aggregate digest $\tilde{\tau}$. It outputs `1' if $\tau=\tilde{\tau}$, or `0' otherwise.
+\end{itemize}
+
+The \Setup, \Update, and \Verify~algorithms are run by the data owner; the \Prove~algorithm is run by the worker; and the \Aggregate~algorithm is run by the server.
+
+Intuitively, the worker must have transferred the required amount of data in order to generate a valid PDF.
+
+A PDF scheme is said to be secure if...
+
+\subsection{Basic Scheme} \label{sect:pdf-basic}
+
+\begin{figure*}[htb]\centering
+  \begin{tabular}{|l|}
+    \hline 
+    \parbox{0.95\textwidth}{
+    \begin{itemize}[leftmargin=*]
+    \item \Setup($D$) $\rightarrow (\tau,\tau_1,\dotsc,\tau_n)$: The setup algorithm takes as input a dataset $D$. It first computes, for $1 \le i \le n$, the root $\tau_i$ of a Merkle tree whose leaves are the data blocks of $D_i$. It then computes the root $\tau$ of a Merkle tree whose leaves are the data segments $D_1,\dotsc,D_n$.
+
+    \item \Update($b^i_j$) $\rightarrow (\tau',\tau'_i)$: The algorithm takes as input one or more newly added or deleted data blocks $b^i_j$ in $D_i$, and outputs an updated digest $\tau'_i$ for $D_i$ and updated digest $\tau'$ for the entire dataset $D$.
+
+  \item \Prove($D_i$) $\rightarrow \tau_i$: The algorithm takes as input a data segment $D_i$ and outputs the corresponding digest $\tau_i$.
+
+  \item \Aggregate($\tau_1,\dotsc,\tau_n$) $\rightarrow \tilde{\tau}$: The algorithm takes as input the digests $\tau_i$ corresponding to their respective data segments $D_i$ and outputs an aggregate digest $\tilde{\tau}$.
+
+  \item \Verify($\tau, \tilde{\tau}$) $\rightarrow \{0,1\}$: The algorithm takes as input the original digest $\tau$ for $D$ and an aggregate digest $\tilde{\tau}$. It outputs `1' if $\tau=\tilde{\tau}$, or `0' otherwise.
+  \end{itemize}} \\
+  \hline
+  \end{tabular}
+  \caption{A basic proof-of-data-fetch (PDF) scheme.}
+  \label{fig:basic-pdf}
+\end{figure*}
+   
+We use a PDF scheme as specified in Figure~\ref{fig:basic-pdf}.
+
+\begin{Lem}
+The basic PDF scheme is secure... 
+\end{Lem}
+
+\subsection{General Approach} \label{sect:pdf-general}
+
+Our basic PDF scheme has two limitations: (i) can the worker avoid computing hashes over all data blocks in a data segment? (ii) security is guaranteed only if all distributed data segments are different from each other; (iii) difficult to update Merkle trees when the associated dataset is updated.
+
+(The second problem can be addressed by including a nonce in each data segment when computing the corresponding hash value.)
+
+- we can use homomorphic MAC (supporting aggregation), however, the owner must compute the aggregate MAC for each data segment -- costly
+
+- we can use Bloom filters, such that the owner spot check only a small fractions of the data elements. However, two issues remain: can we aggregate BFs? how to remove elements from BFs?
+

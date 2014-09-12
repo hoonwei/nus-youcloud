@@ -1,0 +1,45 @@
+\section{Proofs of Computation} \label{sect:poc}
+
+- can we combine proofs of computational effort and random spot checks?
+- can we simply verification, i.e., proof-of-work instead proof-of-correctness?
+- can we relate POC with time?
+
+\subsection{Definitions} \label{sect:poc-definition}
+
+\begin{itemize}
+\item \Setup($D$) $\rightarrow (\tau,\tau_1,\dotsc,\tau_n)$: The algorithm takes as input a dataset $D$, and outputs a digest $\tau_i$ for each data blocks $D_i$ and a digest $\tau$ for the entire dataset $D$.
+
+\item \Update($b^i_j$) $\rightarrow (\tau',\tau'_i)$: The algorithm takes as input one or more newly added or deleted data blocks $b^i_j$ in $D_i$, and outputs an updated digest $\tau'_i$ for $D_i$ and updated digest $\tau'$ for the entire dataset $D$.
+
+\item \Prove($D_i$) $\rightarrow \tau_i$: The algorithm takes as input a data segment $D_i$ and outputs the corresponding digest $\tau_i$.
+
+\item \Aggregate($\tau_1,\dotsc,\tau_n$) $\rightarrow \tilde{\tau}$: The algorithm takes as input the digests $\tau_i$ corresponding to their respective data segments $D_i$ and outputs an aggregate digest $\tilde{\tau}$.
+
+\item \Verify($\tau, \tilde{\tau}$) $\rightarrow \{0,1\}$: The algorithm takes as input the original digest $\tau$ for $D$ and an aggregate digest $\tilde{\tau}$. It outputs `1' if $\tau=\tilde{\tau}$, or `0' otherwise.
+\end{itemize}
+
+\subsection{Our Scheme} \label{sect:poc-scheme}
+
+Our POC scheme is described in Figure~\ref{fig:poc-scheme}.
+
+\begin{figure*}[htb]\centering
+  \begin{tabular}{|l|}
+    \hline 
+    \parbox{0.95\textwidth}{
+    \begin{itemize}[leftmargin=*]
+    \item \Setup($D$) $\rightarrow (\tau,\tau_1,\dotsc,\tau_n)$: The setup algorithm takes as input a dataset $D$. It first computes, for $1 \le i \le n$, the root $\tau_i$ of a Merkle tree whose leaves are the data blocks of $D_i$. It then computes the root $\tau$ of a Merkle tree whose leaves are the data segments $D_1,\dotsc,D_n$.
+
+    \item \Update($b^i_j$) $\rightarrow (\tau',\tau'_i)$: The algorithm takes as input one or more newly added or deleted data blocks $b^i_j$ in $D_i$, and outputs an updated digest $\tau'_i$ for $D_i$ and updated digest $\tau'$ for the entire dataset $D$.
+
+  \item \Prove($D_i$) $\rightarrow \tau_i$: The algorithm takes as input a data segment $D_i$ and outputs the corresponding digest $\tau_i$.
+
+  \item \Aggregate($\tau_1,\dotsc,\tau_n$) $\rightarrow \tilde{\tau}$: The algorithm takes as input the digests $\tau_i$ corresponding to their respective data segments $D_i$ and outputs an aggregate digest $\tilde{\tau}$.
+
+  \item \Verify($\tau, \tilde{\tau}$) $\rightarrow \{0,1\}$: The algorithm takes as input the original digest $\tau$ for $D$ and an aggregate digest $\tilde{\tau}$. It outputs `1' if $\tau=\tilde{\tau}$, or `0' otherwise.
+  \end{itemize}} \\
+  \hline
+  \end{tabular}
+  \caption{A proof-of-computation (POC) scheme.}
+  \label{fig:poc-scheme}
+\end{figure*}
+   

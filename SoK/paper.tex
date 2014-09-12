@@ -1,0 +1,95 @@
+%\documentclass[10pt]{article}
+%\documentclass{sig-alternate}
+%\documentclass{llncs}
+%\documentclass[twocolumn]{svjour3}
+\documentclass[10pt, conference]{IEEEtran}
+%\documentclass[10pt, conference, compsocconf]{IEEEtran}
+%\documentclass[11pt,draftcls,onecolumn]{IEEEtran}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{latexsym}
+\usepackage{pifont}
+%\usepackage{subfigure}
+\usepackage{ifthen}
+\usepackage{xspace}
+%\usepackage{epic}
+%\usepackage{calc}
+%\usepackage{verbatim}
+%\usepackage{enumerate}
+%\usepackage{xspace}
+\usepackage{array}
+\usepackage{graphicx}
+\usepackage{url}
+% \usepackage{a4wide}
+%\usepackage{extarrows}
+\usepackage{color}
+\usepackage{booktabs}
+\usepackage{bold-extra}
+\usepackage{multirow}
+%\usepackage{authblk}
+%\usepackage{keywords}
+%\usepackage{amsthm}
+\usepackage{times}
+\usepackage{comment}
+
+\let\labelindent\relax
+\usepackage{enumitem}
+
+\newtheorem{Prot}{Protocol}
+\newtheorem{Thm}{Theorem}
+\newtheorem{Def}{Definition}
+\newtheorem{Lem}{Lemma}
+\newtheorem{Pro}{Proposition}
+% \newtheorem{Ex}{Example}
+% \newtheorem{Rem}{Remark}
+% \newtheorem{Ass}{Assumption}
+% \newtheorem{Cor}[Thm]{Corollary}
+% \newtheorem{Conj}[Thm]{Conjecture}
+% \newtheorem{Prob}[Thm]{Problem}
+% \newtheorem{Sol}[Thm]{Solution}
+
+%---Formating---
+\renewcommand{\paragraph}{\vspace{3pt}\noindent\textbf}
+%\newcommand{\tcodename}{{\fontsize{23}{28}{\scshape{YouCloud}}}\xspace}
+%\newcommand{\codename}{{{\scshape{YouCloud}}}\xspace}
+
+%---Algorithms---
+\newcommand{\Setup}{\textsf{\textup{Setup}}}
+\newcommand{\Update}{\textsf{\textup{Update}}}
+\newcommand{\Prove}{\textsf{\textup{Prove}}}
+\newcommand{\Verify}{\textsf{\textup{Verify}}}
+\newcommand{\Aggregate}{\textsf{\textup{Aggregate}}}
+\newcommand{\MK}{\textsf{\textup{MK}}}
+\newcommand{\EK}{\textsf{\textup{EK}}}
+\newcommand{\CK}{\textsf{\textup{CK}}}
+
+\bibliographystyle{plain}
+%\pagestyle{plain}
+%\bibliographystyle{IEEEtran}
+
+%--------------------------------------------------------------------
+
+\begin{document}
+
+\title{SoK: How to Verify Cloud Resource Accountability}
+
+\maketitle
+
+\input{abstract}       
+\input{intro}
+\input{current-practice}
+\input{new-trends}
+\input{techniques}
+\input{analysis}
+\input{decentralized-clouds}
+\input{open-problems}
+\input{related-work}
+\input{conclusion}
+%\bibliographystyle{abbrv}
+%\bibliography{IEEEabrv,vc}
+\bibliography{vc}
+%\appendix
+%\input{sec-proof}
+
+\end{document}
