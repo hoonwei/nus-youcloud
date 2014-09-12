@@ -1,36 +1,16 @@
 \section{Introduction} \label{sect:intro}
 
-The concept of cloud computing~\cite{AFG+10}, in large part, is already a reality today.
-Computing resources are typically provided by large data centers owned and monopolized by only a few organizations, e.g., Amazon, Microsoft, and Rackspace, and made available to users via a distributed network.
-Such {\em centralized clouds} may be easier to manage; they are, however, costly to maintain, e.g., high utility costs and security \& physical vulnerabilities.
-Moreover, they may have difficulty in keeping pace with today's and future data growth.
-They may also be bandwidth bottlenecks for applications requiring substantial scalability and elasticity~\cite{symform-slide,techrepublic}.
-
-{\em Decentralized clouds} are emerging as attractive alternatives in recent years.
-Instead of relying on large and centralized data centers, users harvest the excess computing resources available from Internet-connected computers distributed across the world; in return, the owners of the involved computers earn credits or money (typically in the form of digital currency) proportionate to their contributions.
-This greatly reduces operation and maintenance costs in comparison with the centralized model.
-A few notable examples of such commercial decentralized clouds are Storj~\cite{Storj}, Symform~\cite{Symform}, and MaidSafe~\cite{MaidSafe}.
-We note that a decentralized cloud is beyond a multi-cloud, which combines existing centralized clouds into a single virtual cloud storage (e.g., MultCloud~\cite{MultCloud} and Syndicate~\cite{Syndicate}), or a hybrid-cloud, which typically refers to a combination of public and private clouds.
-The basic idea of a decentralized cloud here is essentially the same as that of what was traditionally known as {\em volunteer computing} (e.g., SETI@home~\cite{Seti@home} and Folding@home~\cite{Folding@home}) and {\em desktop grids}~\cite{CKB+07} (e.g., SZTAKI Desktop Grid~\cite{sztaki} and EDGeS~\cite{edges}).
-However, a decentralized cloud typically relies on a pricing model, e.g., pay per usage, and the associated accounting and billing services, analogous to those for the existing centralized clouds.
-(See~\cite{DP12,CWH13,MKK13} for further examples and discussions on centralized vs.\ decentralized clouds, and volunteer vs.\ cloud computing.)
-
 - resource usage and billing are top concerns for the majority of IT managers and CIOs 
 
 - existing resource accounting, hard to verify the accuracy and correctness. Also, existing resource metering tools are designed for servers and data centers~\cite{?}.
 
-- The concept of verifiable resource accounting (VRA) was first formalized by Sekar and Maniatis~\cite{SM11}.
-
-- They highlighted that trusted computing can be used to address resource accounting guarantees. However, this cannot be achieved using existing deployed mechanisms. Ideally, a new resource accounting OS or hypervisor should be developed. However, this is not viable given the existing legacy of deployed infrastructure. So, as shown in their subsequent work~\cite{CMP+13}, the only option is to build another layer of lightweight hypervisor on top of existing legacy hypervisors. Nevertheless, there are other challenges remain. For example, such a software-based solution currently can only monitor CPU usage and memory utilization. Also, there's a privacy issue with respect to the cloud provider. It's not clear how the provider's privacy can be protected in terms of their logic and policy of resource allocation (which is usually proprietary).
-
-- the authors acknowledged that what can be done with current TPM technology is only a first step towards an overaching vision. So it may take years to see any deployable and satisfactory TPM-based solution for VRA.
-
-- moreover, it seems infeasible to assume or require each distributed computer in a decentralized cloud model to be equipped with TPM
-
-\paragraph{Goal \& Approach.}
-- cryptographic VRA solution can be an appealing immediate and cheaper alternative. In fact, an important point to note is that a cryptographic solution can achieve properties not achievable via TPM, and vice versa. For example, we can provide proofs-of-data-fetch, proofs-of-storage, proofs-of-retrievability, proofs-of-computation, etc., while a TPM-based solution can measure CPU usage and memory utilization. So both approaches can co-exist and complement each other.
+Our key contributions:
+\begin{itemize}
+ \item A survey of current practice and emerging trends in verifiable resource accounting (VRA).
+ \item A taxonomy and in-depth analysis of the state-of-the-art trusted computing mechanisms and cryptographic primitives supporting VRA.
+ \item New observations and insights on adaptation of current VRA techniques to a {\em decentralized} cloud model.
+\end{itemize} 
 
 
-\paragraph{Results.}
 
-
+- out of scope: verifying code or software integrity~\cite{SLS05,SMV+10}, encoding format~\cite{DJO+12}

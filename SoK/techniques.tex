@@ -1,71 +1,83 @@
-\section{Proofs of Data Fetch} \label{sect:pdf}
+\section{Technical Overview} \label{sect:techniques}
 
-Our concept of proofs of data fetch (PDF) is closely related to that of proofs of storage.
-We are interested in using a PDF as a means to convince a verifier (data owner) that, indeed, data has been transferred between two parties (worker and data server).
-Note that in a PDF system, we are not concerned about the (possibly mid- to long-term) storage on the worker-side, i.e., data is retrieved from the server and deleted upon completion of a requested computational task.
-Hence, we do not need a full-fledged proof-of-storage or proof-of-retrievability scheme (e.g., \cite{JK07,AKK09,SW13}) for our purposes.
+\subsection{Storage}
+
+Early proof-of-storage systems were proposed by Golle, Jarecki, and Mironov~\cite{GJM02}, Deswarte, Quisquater, and Sa\"{\i}dane~\cite{DQS03}, Filho and Barreto~\cite{FB06}, and Schwarz and Miller~\cite{SM06}.
+However, these proposals lacked a formal security model and analysis.
+Juels and Kaliski~\cite{JK07}, Naor and Rothblum~\cite{NR09} considered the first formal models in the context of authenticators and proofs of retrievability (POR), respectively.
+Subsequently, a series of improvements have been proposed, for example, in terms of public verifiability~\cite{AKK09,ABC+11}, compactness of proofs~\cite{SW13}, support for dynamic data update~\cite{ADM+08,EKP+09,WWL+09,SDJ+12,CKW13,SSP13}, replication~\cite{CKB+08}, and security against a fully Byzantine adversarial model~\cite{BJO09a}.
+
+There also exist proposals distributed proof-of-storage systems.
+Bowers, Juels, and A. Oprea~\cite{BJO09b} proposed HAIL, in which files are divided in segments and stored across a collection of distributed servers.
+They showed that the integrity and availability of files can be realized using file authentication techniques and integrity-protected error-correcting code in an interactive and synchronous manner among the distributed servers.
+Zhu et al.~\cite{ZHA+12} considered a distributed proof-of-data-possession (PDP) system in a multi-cloud model, which requires a trusted third party to store public parameters used for proof verification.
+On the other hand, Etemad and K{\"u}p\c{c}{\"u}~\cite{EK13} proposed a distributed and replicated dynamic PDP system which is transparent from the user's viewpoint (in terms of the internal architecture of the cloud provider).
+In very recent development, Miller et al.~\cite{MJS+14} show that a distributed POR system can be adapted for mining Bitcoin (instead of using computational resources).
+
+\paragraph{Possession.}
+
+\paragraph{Retrievability.}
+
+\paragraph{Redundancy.}
 
 
-[Why's our scheme different from~\cite{ADM+08}? The latter performs random spot-checking using symmetric-key primitives]
 
-\subsection{Definitions} \label{sect:pdf-definition}
 
-Let $D := (D_1,D_2,\dotsc,D_n)$ denote a dataset consisting $n$ sequential data segments, where each $D_i$ comprises $\ell$ encrypted data blocks $(b^i_1,b^i_2,\dotsc,b^i_{\ell})$ of similar block size $|b|$.
-We give a definition of a proof-of-data-fetch (PDF) scheme that suits our purposes:
-\begin{itemize}
-\item \Setup($D$) $\rightarrow (\tau,\tau_1,\dotsc,\tau_n)$: The algorithm takes as input a dataset $D$, and outputs a digest $\tau_i$ for each data blocks $D_i$ and a digest $\tau$ for the entire dataset $D$.
+\subsection{Computation}
 
-\item \Update($b^i_j$) $\rightarrow (\tau',\tau'_i)$: The algorithm takes as input one or more newly added or deleted data blocks $b^i_j$ in $D_i$, and outputs an updated digest $\tau'_i$ for $D_i$ and updated digest $\tau'$ for the entire dataset $D$.
+\paragraph{Correctness.}
 
-\item \Prove($D_i$) $\rightarrow \tau_i$: The algorithm takes as input a data segment $D_i$ and outputs the corresponding digest $\tau_i$.
+\paragraph{Effort.}
 
-\item \Aggregate($\tau_1,\dotsc,\tau_n$) $\rightarrow \tilde{\tau}$: The algorithm takes as input the digests $\tau_i$ corresponding to their respective data segments $D_i$ and outputs an aggregate digest $\tilde{\tau}$.
+There exist several reasonably efficient and practical methods for verifying general secure computation on data outsourced by a client to one or multiple workers (or servers).
 
-\item \Verify($\tau, \tilde{\tau}$) $\rightarrow \{0,1\}$: The algorithm takes as input the original digest $\tau$ for $D$ and an aggregate digest $\tilde{\tau}$. It outputs `1' if $\tau=\tilde{\tau}$, or `0' otherwise.
-\end{itemize}
+[Replication]
+One natural and simple way for the client to verify the correctness of computation is to request multiple workers to execute its program on the same dataset. The client then takes the plurality value of the results from the workers to be the correct answer. As long as a majority of the workers are honest, the client gets the correct answer. In case there is inconsistency, the client can execute the program itself. Typically, the client and the workers sign all messages exchanged between them. This is to prevent sybil and impersonation attacks, for example.
 
-The \Setup, \Update, and \Verify~algorithms are run by the data owner; the \Prove~algorithm is run by the worker; and the \Aggregate~algorithm is run by the server.
+The need for an honest majority of workers can be obviated using refereed delegation of computation [CRR11]. In this computation model, the client requests for the result of a function from two (or more) workers. In case of inconsistency, the client can efficiently determine the true claim as long as there is at least one honest worker. Here, the client acts as a ``referee'' and is not required to perform the verification itself. The overhead (in the event of inconsistency or dispute) is poly-logarithmic in the size of the computation. It has been shown in [CRR11] that, for some parameters, one gets an 8x slowdown in a program for computing the determinant of a given matrix.
 
-Intuitively, the worker must have transferred the required amount of data in order to generate a valid PDF.
+Alternatively, the client can establish a contractual agreement with two (or more) workers in one of the following two ways [NK12]:
+If the client asks for computation results from both workers, and the results do not match, both workers pay a penalty to the client, and return the money paid for the computation as well.
+If the client asks for computation results from both workers, and the results do not match, the client performs a potentially costly audit of the computation. Each worker whose result does not match the result given by the client's audit pays a fine to the client.
+The above two agreements can be proved in a game-theoretic model that they have individually rational and incentive compatible equilibrium, assuming the workers behave honestly. It was recently shown in [CKP14] that optimal results (in terms of the client's expected costs) can still be achieved even when considering side-channel information and collusion among workers.
 
-A PDF scheme is said to be secure if...
+Clearly, a limitation of the replication method is the need for at least two workers for any computational tasks. However, in return, the client is guaranteed of detecting any cheating worker.
 
-\subsection{Basic Scheme} \label{sect:pdf-basic}
+[Random Spot-checking]
+Another common approach is to insert fake, random items at random positions when forming a computational task for a worker [GM01, JK07]. The fake items need to be chosen only once for all tasks. Upon job completion, the client checks if the returned results corresponding to the fake items are as expected. The complexity of verification overhead is O(n) for n fake items, where n is chosen sufficiently large for achieving high probability of cheating detection. It was recently shown in [BZF13] that for secure (privacy-preserving) and verifiable outsourcing of Hamming distance computations, the worker's computational overhead increases only moderately, by roughly 10-24\% for different sizes of datasets after insertion of fake items. On the other hand, the client's preparation and verification overhead is roughly 8 seconds for a dataset of 8,000 items.
 
-\begin{figure*}[htb]\centering
-  \begin{tabular}{|l|}
-    \hline 
-    \parbox{0.95\textwidth}{
-    \begin{itemize}[leftmargin=*]
-    \item \Setup($D$) $\rightarrow (\tau,\tau_1,\dotsc,\tau_n)$: The setup algorithm takes as input a dataset $D$. It first computes, for $1 \le i \le n$, the root $\tau_i$ of a Merkle tree whose leaves are the data blocks of $D_i$. It then computes the root $\tau$ of a Merkle tree whose leaves are the data segments $D_1,\dotsc,D_n$.
+The spot-checking approach may be cheaper than using replication, with slightly weaker (probabilistic) guarantee of cheating detection.
 
-    \item \Update($b^i_j$) $\rightarrow (\tau',\tau'_i)$: The algorithm takes as input one or more newly added or deleted data blocks $b^i_j$ in $D_i$, and outputs an updated digest $\tau'_i$ for $D_i$ and updated digest $\tau'$ for the entire dataset $D$.
+[Obfuscation of Code]
+One can also use code obfuscation techniques, e.g., to insert checkable state points in computational tasks, such that the worker is able to produce proofs of execution comprising a sequence of state points, which can be verified by the worker [Hoh98, MWR99].
 
-  \item \Prove($D_i$) $\rightarrow \tau_i$: The algorithm takes as input a data segment $D_i$ and outputs the corresponding digest $\tau_i$.
+[Trusted Hardware]
+The client may also use trusted hardware, e.g., tamper-proof co-processor, on the server to prove the correctness of the computation [SPD05]. This is somewhat conceptually similar to relying on a weak trusted third party, i.e., hardware manufacturer.
 
-  \item \Aggregate($\tau_1,\dotsc,\tau_n$) $\rightarrow \tilde{\tau}$: The algorithm takes as input the digests $\tau_i$ corresponding to their respective data segments $D_i$ and outputs an aggregate digest $\tilde{\tau}$.
+Kumaresan and Bentove~\cite{KB14} recently proposed a model of incentivizing correct computation using Bitcoin. 
 
-  \item \Verify($\tau, \tilde{\tau}$) $\rightarrow \{0,1\}$: The algorithm takes as input the original digest $\tau$ for $D$ and an aggregate digest $\tilde{\tau}$. It outputs `1' if $\tau=\tilde{\tau}$, or `0' otherwise.
-  \end{itemize}} \\
-  \hline
-  \end{tabular}
-  \caption{A basic proof-of-data-fetch (PDF) scheme.}
-  \label{fig:basic-pdf}
-\end{figure*}
-   
-We use a PDF scheme as specified in Figure~\ref{fig:basic-pdf}.
 
-\begin{Lem}
-The basic PDF scheme is secure... 
-\end{Lem}
+\subsection{Data Transfer}
 
-\subsection{General Approach} \label{sect:pdf-general}
+Verifiable Content Distribution. It was shown in [KFM04] that verification of erasure-encoded data blocks in P2P-CDNs can be performed on-the-fly, i.e., recipients can verify the integrity of check blocks immediately as each data block is downloaded. Such a scheme can be constructed based on a homomorphic hash function.
 
-Our basic PDF scheme has two limitations: (i) can the worker avoid computing hashes over all data blocks in a data segment? (ii) security is guaranteed only if all distributed data segments are different from each other; (iii) difficult to update Merkle trees when the associated dataset is updated.
+File sharing or content distribution is commonly done over a peer-to-peer (P2P) network. However, a fundamental problem in a P2P network is the so-called ``free riders'' problem, i.e., users who use the services provided by others but do not provide any services to their peers. Motivated by this problem, [GJM02] introduced two cryptographic primitives:
+communication-enforcing signature (CES), which enforces ``proofs-of-download'' or ``pay-for-bandwidth'' in the context of P2P content distribution networks (P2P-CDNs);
+storage-enforcing commitment (SEC), which enforces ``proofs-of-storage'' or ``proofs-of-data-possession''.
+Standard signatures are not adequate as proofs-of-download, since the hash-and-sign paradigm implies that knowledge of the digest of a message is sufficient to sign the whole message. Hence, a dishonest user can save on bandwidth by exchanging only the hashes of requested content and claim credit for content she has never downloaded. CES works in such a way that the signer can only sign a message after exchanging at least as much data with the requester as would be required to send the entire message. On the other hand, SEC is based on a standard commitment scheme with the additional property that the party holding a commitment can ask the party that committed itself to a message to prove that it is still in the possession of the message.
 
-(The second problem can be addressed by including a nonce in each data segment when computing the corresponding hash value.)
+Subsequently in [FB06], a CES scheme in a stronger security model, which assumes both uploaders and downloaders are untrusted, was proposed. A SEC scheme with smaller public key size was also proposed.
 
-- we can use homomorphic MAC (supporting aggregation), however, the owner must compute the aggregate MAC for each data segment -- costly
 
-- we can use Bloom filters, such that the owner spot check only a small fractions of the data elements. However, two issues remain: can we aggregate BFs? how to remove elements from BFs?
+\subsection{Location}
+
+
+\subsection{Isolation}
+
+\subsection{Space}
+
+There also exist primitives to enable a client to verify if the cloud has the requested amount of memory space [ABF13] and disk space [DFK+13].
+
+\subsection{Erasure}
+
 
