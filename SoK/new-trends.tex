@@ -10,6 +10,10 @@ The first question is about the accuracy of the consumption vector, e.g., CPU ti
 
 It was envisioned in [SM11] that verifiable resource accounting can be realized in the following operating model: the provider generates a consumption report describing what resources it thinks a customer has consumed for a task. The customer then is able to check either by herself or via an independent component or party the validity of the consumption report. 
 
+\subsection{Cryptographic Audits} \label{sect:crypto-audits}
+
+
+- cryptographic VRA solution can be an appealing immediate and cheaper alternative. In fact, an important point to note is that a cryptographic solution can achieve properties not achievable via TPM, and vice versa. For example, we can provide proofs-of-data-fetch, proofs-of-storage, proofs-of-retrievability, proofs-of-computation, etc., while a TPM-based solution can measure CPU usage and memory utilization. So both approaches can complement each other.
 
 \subsection{Trusted Computing} \label{sect:trusted-computing}
 
@@ -19,12 +23,6 @@ Their solution leverages advances in nested virtualization to build a trusted ``
 They highlighted that trusted computing can be used to address resource accounting guarantees. However, this cannot be achieved using existing deployed mechanisms. Ideally, a new resource accounting OS or hypervisor should be developed. However, this is not viable given the existing legacy of deployed infrastructure. So, as shown in~\cite{CMP+13}, the only option is to build another layer of lightweight hypervisor on top of existing legacy hypervisors. Nevertheless, there are other challenges remain. For example, such a software-based solution currently can only monitor CPU usage and memory utilization. Also, there's a privacy issue with respect to the cloud provider. It's not clear how the provider's privacy can be protected in terms of their logic and policy of resource allocation (which is usually proprietary).
 
 - the authors acknowledged that what can be done with current TPM technology is only a first step towards an overaching vision. So it may take years to see any deployable and satisfactory TPM-based solution for VRA.
-
-
-\subsection{Cryptographic Audits} \label{sect:crypto-audits}
-
-
-- cryptographic VRA solution can be an appealing immediate and cheaper alternative. In fact, an important point to note is that a cryptographic solution can achieve properties not achievable via TPM, and vice versa. For example, we can provide proofs-of-data-fetch, proofs-of-storage, proofs-of-retrievability, proofs-of-computation, etc., while a TPM-based solution can measure CPU usage and memory utilization. So both approaches can complement each other.
 
 \subsection{Others} \label{sect:other-trends}
 
