@@ -1,8 +1,22 @@
-\section{Current Practice} \label{sect:current-practice}
+\section{Current Landscape} \label{sect:current-practice}
 
-~\cite{MMS13}
+\subsection{Cloud Service Level Agreements} \label{sect:sla-overview}
 
-\subsection{Types of Resources}
+- Why are SLAs important?
+
+~\cite{Ahr+10,FMM+13,Kyr13}
+
+\begin{itemize}
+ \item Resource availability:
+ \item Data privacy:
+ \item Location:
+ \item Resource accounting:
+\end{itemize}
+
+
+
+
+- Types of Resources
 
 \paragraph{Storage.}
 
@@ -12,8 +26,20 @@
 
 \paragraph{CPU.}
 
-\subsection{Accounting \& Pricing Models}
+- Accounting \& Pricing Models~\cite{MMS13}
 
-\paragraph{Amazon.}
 
-\paragraph{Rackspace.}
+- currently lack of effective means for a cloud user to verify committed SLAs
+
+
+\subsection{Monitoring} \label{sect:sla-monitoring}
+
+- Cloud service monitoring (e.g., Rackspace Deep Server Monitoring)
+
+~\cite{ABD+13,FEH+14}
+
+\subsection{Enforcement} \label{sect:sla-enforcement}
+
+Existing major cloud providers (e.g., Amazon, Rackspace, and Microsoft) leave the burden of detecting SLA violation to the customer~\cite{Bas12}.
+
+CloudProof~\cite{PLM+11}
