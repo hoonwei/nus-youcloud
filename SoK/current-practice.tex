@@ -7,13 +7,20 @@
 ~\cite{Ahr+10,FMM+13,Kyr13}
 
 \begin{itemize}
- \item Resource availability:
- \item Data privacy:
- \item Location:
+ \item Resource availability: Cloud providers typically deliver their services via massively redundant systems to ensure high availability of their services.
+ 
+ \item Data privacy: Data encryption, retention, and deletion. Many organizations have legal requirements that data must be kept for a certain period of time. Some organizations also require that data be deleted after a certain period of time.
+ 
+ \item Hardware erasure and destruction: Improper disposal of hardware may lead to data leakage. If a hard drive fails, the platters of that disk should be zeroed out before the drive is disposed or recycled.
+
+ \item Location: Depending on the kind of data the enterprise is managing on the user's behalf, there might be legal restrictions on the location of the physical server where the data is stored. Cloud vendors can provide an API for determining the location of the physical hardware that delivers the cloud service~\cite{Ahr+10}. For example, many countries prohibit storing personal information about its citizens on any machine outside its borders.
+ 
+ \item Maintenance: Cloud providers should inform their consumers about how and when maintenance tasks are carried out.
+
  \item Resource accounting:
 \end{itemize}
 
-
+- lifecycle of applications and documents, including versioning of applications, the retention and destruction of data 
 
 
 - Types of Resources
@@ -34,9 +41,17 @@
 
 \subsection{Monitoring} \label{sect:sla-monitoring}
 
+- service level management via monitoring and measuring the performance of the provided services are key to determining if a SLA is met.
+- SLM allows a cloud provider to make decisions based on its business objectives and technical realities. For example, the cloud provider could reallocate bandwidth or bring more physical hardware online when the throughput for a service is not meeting a consumer's requirements.
+- From the consumer's perspective, SLM helps in making decisions (possibly in an automated manner) about the way it uses cloud services~\cite{Ahr+10}.
+
+
 - Cloud service monitoring (e.g., Rackspace Deep Server Monitoring)
 
 ~\cite{ABD+13,FEH+14}
+
+- monitoring metrics: throughput, load balancing, elasticity, agility, customer service response time, etc. These are not difficult to measure.
+
 
 \subsection{Enforcement} \label{sect:sla-enforcement}
 
@@ -45,3 +60,6 @@ Existing major cloud providers (e.g., Amazon, Rackspace, and Microsoft) leave th
 - verify based on well-defined metrics, Service Measurement Index (SMI)
 
 CloudProof~\cite{PLM+11}
+
+
+- Most public cloud services offer a non-negotiable SLA. With these providers, a consumer whose requirements are not met can either: (i) accept a credit towards next month's bill, or (ii) stop using the service.
