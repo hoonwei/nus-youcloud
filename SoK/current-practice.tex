@@ -27,7 +27,7 @@
 - lifecycle of applications and documents, including versioning of applications, the retention and destruction of data 
 
 
-- we focus on SLA data policies~\cite{Mee12}
+- we focus on SLA data policies~\cite{Mee12}: data preservation, data redundancy, data location, data privacy.
 
 
 
@@ -35,6 +35,31 @@
 
 
 - currently lack of effective means for a cloud user to verify committed SLAs
+
+\begin{table*}[htb]\centering \small
+\caption{SLA requirements and use case scenarios~\cite{Ahr+10}.}
+\label{tab:model-and-requirements}
+  \begin{tabular}{lcccccc}
+    \toprule
+    & $\mathsf{U} \leftrightarrow \mathsf{C}$ & $\mathsf{E} \leftrightarrow \mathsf{C}$ & $\mathsf{E} \leftrightarrow \mathsf{C} \leftrightarrow \mathsf{U}$ & $\mathsf{E} \leftrightarrow \mathsf{C} \leftrightarrow \mathsf{E}$ & Private cloud & Hybrid cloud \\
+    \midrule
+    Data encryption && \cmark &&&& \\
+    Privacy &&&&&& \\
+   \bottomrule
+   \multicolumn{7}{l}{\scriptsize Notation: $\mathsf{U}$ denotes end user; $\mathsf{E}$ denotes enterprise; $\mathsf{C}$ denotes cloud; $\leftrightarrow$ denotes interactivity.}
+  \end{tabular}
+\end{table*}
+
+\begin{table}[htb]\centering \small
+\caption{SLA comparison between cloud providers~\cite{Bas12}.}
+\label{tab:sla-comparison}
+  \begin{tabular}{lccc}
+    \toprule
+    & Amazon & Azure & Rackspace \\
+    \midrule
+   \bottomrule
+  \end{tabular}
+\end{table}
 
 
 \subsection{Monitoring} \label{sect:sla-monitoring}
@@ -44,14 +69,26 @@
 - From the consumer's perspective, SLM helps in making decisions (possibly in an automated manner) about the way it uses cloud services~\cite{Ahr+10}.
 
 
-- Cloud service monitoring (e.g., Rackspace Deep Server Monitoring)
+- motivations for monitoring~\cite{DLN12,EFN+12}
 
-~\cite{ABD+13,FEH+14}
+- review of existing cloud service monitoring tools~\cite{ABD+13,FEH+14}
 
 - monitoring metrics: throughput, load balancing, elasticity, agility, customer service response time, etc. These are not difficult to measure.
 
+\begin{table*}[htb]\centering \small
+\caption{Existing cloud monitoring tools and features~\cite{ABD+13,FEH+14}.}
+\label{tab:monitoring-tools}
+  \begin{tabular}{lccccccc}
+     \toprule
+     & CloudKick & Nimsoft & Monitis & Amazon Cloud Watch & Azure Watch & PCMONS & mOSAIC \\
+     \midrule
+%     Monitored resources &&&&&& \\
+     Service PKI monitoring &&&&&&& \\
+    \bottomrule
+  \end{tabular}
+\end{table*}
 
-\subsection{Detecting Violations} \label{sect:sla-detect}
+\subsection{Limitations} \label{sect:sla-limitations}
 
 Existing major cloud providers (e.g., Amazon, Rackspace, and Microsoft) leave the burden of detecting SLA violation to the customer~\cite{Bas12}.
 
@@ -63,3 +100,5 @@ CloudProof~\cite{PLM+11}
 - Most public cloud services offer a non-negotiable SLA. With these providers, a consumer whose requirements are not met can either: (i) accept a credit towards next month's bill, or (ii) stop using the service.
 
 - To provide services cost-effectively, a cloud will manage the pool of hardware resources for resource efficiency; one of the strategies that a cloud provider employs during periods of reduced consumer demand is to power off unused components. Whether for power management, or for hardware refresh, migration of customer workloads (data storage and processing) from one physical computer to another physical computer is a key strategy that allows a provider to refresh hardware or consolidate workloads without inconveniencing consumers~\cite{BGP+12}.
+
+
