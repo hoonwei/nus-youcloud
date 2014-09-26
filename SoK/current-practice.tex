@@ -36,27 +36,48 @@
 
 - currently lack of effective means for a cloud user to verify committed SLAs
 
-\begin{table*}[htb]\centering \small
+\begin{table*}[htb]\centering \footnotesize
 \caption{SLA requirements and use case scenarios~\cite{Ahr+10}.}
 \label{tab:model-and-requirements}
   \begin{tabular}{lcccccc}
     \toprule
-    & $\mathsf{U} \leftrightarrow \mathsf{C}$ & $\mathsf{E} \leftrightarrow \mathsf{C}$ & $\mathsf{E} \leftrightarrow \mathsf{C} \leftrightarrow \mathsf{U}$ & $\mathsf{E} \leftrightarrow \mathsf{C} \leftrightarrow \mathsf{E}$ & Private cloud & Hybrid cloud \\
+    & $\mathsf{U} \leftrightarrow \mathsf{C}$ & $\mathsf{E} \leftrightarrow \mathsf{C} \leftrightarrow \mathsf{U}$ & $\mathsf{E} \leftrightarrow \mathsf{C}$ & $\mathsf{E} \leftrightarrow \mathsf{C} \leftrightarrow \mathsf{E}$ & Private cloud & Hybrid cloud \\
     \midrule
-    Data encryption && \cmark &&&& \\
-    Privacy &&&&&& \\
+    Data encryption &&& \cmark &&& \\
+    Privacy & \cmark & \cmark & \cmark & \cmark & \cmark & \cmark \\
+    Data retention \& deletion &&& \cmark & \cmark && \cmark \\
+    Hardware erasure \& destruction &&& \cmark & \cmark && \cmark \\
+    Regulatory compliance & \cmark & \cmark & \cmark & \cmark & \cmark & \cmark \\
+    Transparency & \cmark & \cmark & \cmark & \cmark & \cmark & \cmark \\
+    Certification & \cmark & \cmark & \cmark & \cmark & \cmark & \cmark \\
+    Terminology for PKIs &&& \cmark & \cmark & \cmark & \cmark \\
+    Metrics & \cmark & \cmark & \cmark & \cmark & \cmark & \cmark \\
+    Auditability & \cmark &&&&&\\
+    Monitoring & \cmark & \cmark & \cmark & \cmark & \cmark & \cmark \\
+    Machine-readable SLAs &&&& \cmark && \\
    \bottomrule
    \multicolumn{7}{l}{\scriptsize Notation: $\mathsf{U}$ denotes end user; $\mathsf{E}$ denotes enterprise; $\mathsf{C}$ denotes cloud; $\leftrightarrow$ denotes interactivity.}
   \end{tabular}
 \end{table*}
 
-\begin{table}[htb]\centering \small
+
+
+\begin{table}[htb]\centering \footnotesize
 \caption{SLA comparison between cloud providers~\cite{Bas12}.}
 \label{tab:sla-comparison}
   \begin{tabular}{lccc}
     \toprule
     & Amazon & Azure & Rackspace \\
     \midrule
+    Service guarantee &&& \\
+    Scheduled maintenance &&& \\
+    OS/software patches &&& \\
+    Service guarantee time period &&& \\
+    Service credit &&& \\
+    Violation reporting onus &&& \\
+    Violation incident reporting &&& \\
+    Violation claim filing &&& \\
+    SLA publish date &&& \\
    \bottomrule
   \end{tabular}
 \end{table}
@@ -75,15 +96,25 @@
 
 - monitoring metrics: throughput, load balancing, elasticity, agility, customer service response time, etc. These are not difficult to measure.
 
-\begin{table*}[htb]\centering \small
-\caption{Existing cloud monitoring tools and features~\cite{ABD+13,FEH+14}.}
+\begin{table*}[htb]\centering \footnotesize
+\caption{Existing commercial and open-source cloud monitoring tools and their key properties \& features~\cite{FEH+14}.}
 \label{tab:monitoring-tools}
   \begin{tabular}{lccccccc}
      \toprule
-     & CloudKick & Nimsoft & Monitis & Amazon Cloud Watch & Azure Watch & PCMONS & mOSAIC \\
+     & Amazon & AzureWatch~\cite{AzureWatch} & Rackspace & CA Nimsoft & Monitis~\cite{Monitis} & Nagios~\cite{Nagios} & PCMONS~\cite{Pcmons} \\
+     & CloudWatch~\cite{CloudWatch} && Cloud Monitor~\cite{RackspaceCloudMonitoring} & Monitor~\cite{Nimsoft} &&& \\
      \midrule
-%     Monitored resources &&&&&& \\
-     Service PKI monitoring &&&&&&& \\
+     Scalability & \cmark & \cmark & \cmark & \cmark &\cmark && \\
+     Portability &&& Limited & \cmark & \cmark & Limited & \\
+     Multi-tenancy & \cmark & \cmark & \cmark & \cmark && \cmark & \\
+     Interoperability &&&&&&& \cmark \\
+     Customizability & \cmark & \cmark & \cmark & \cmark & \cmark & \cmark & \cmark \\
+     Resource usage metering & \cmark & \cmark & \cmark & \cmark & \cmark & \cmark & \cmark \\
+     {\bf Verifiable measuring} &&&&&&& \\
+     Service load monitoring & \cmark & \cmark & \cmark & \cmark & \cmark & \cmark & \cmark \\
+     {\bf Service PKI monitoring} &&&&&&& \\
+     Risk assessment & \cmark & \cmark & \cmark & \cmark & Limited & \cmark & \cmark \\
+     Security breach monitoring & \cmark & \cmark & \cmark & \cmark && \cmark & \\
     \bottomrule
   \end{tabular}
 \end{table*}
